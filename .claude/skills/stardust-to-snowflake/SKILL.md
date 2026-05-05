@@ -14,6 +14,163 @@ The user has:
 
 If the user has prototypes but no EDS scaffolding, stop and ask whether to bootstrap. If they have EDS but no prototypes, this skill doesn't apply.
 
+## Prerequisites
+
+This skill depends on the `aem` skill from `ai-ecoverse/skills` for the EDS-specific patterns the conversion steps lean on. **Before any work**, ensure it is installed:
+
+```bash
+# Install (idempotent — safe to re-run)
+upskill ai-ecoverse/skills --skill aem
+```
+
+The skill is installed to `/workspace/skills/aem/SKILL.md`. The sprinkle-driven flow auto-detects this on load and fires the `install-deps` lick when missing (see Sprinkle integration). When invoked from chat, run the command yourself before starting any of the steps below.
+
+## Sprinkle integration
+
+When invoked through the snowflake sprinkle (`.claude/skills/stardust-to-snowflake/snowflake.shtml`), the user drives the conversion through four stepper panels: **Scoop** (target repo + branch), **Sprinkle** (file selection), **Swirl** (conversion), **Serve** (results). The Scoop and Swirl panels emit licks; the Sprinkle panel scans the filesystem itself through the bridge file APIs and never reaches the agent.
+
+Push updates with: `sprinkle send snowflake '<json>'`.
+
+### Lick: `install-deps` (auto-fired on load when prerequisites missing)
+
+Payload: empty.
+
+The sprinkle fires this on open if `/workspace/skills/aem/SKILL.md` is absent. The Connect button stays disabled until the dependency is confirmed installed.
+
+**Run `upskill` in the cone, never in a scoop.** Scoops are sandboxed and cannot write under `/workspace`, so `upskill ai-ecoverse/skills --skill aem` will fail in a scoop with no useful diagnostic. The cone has the filesystem access required to install the skill into `/workspace/skills/`.
+
+Steps (executed in the cone):
+
+1. Run `upskill ai-ecoverse/skills --skill aem`.
+2. Verify `/workspace/skills/aem/SKILL.md` now exists.
+3. On success: `sprinkle send snowflake '{"type":"deps-installed"}'` — the sprinkle re-checks and unlocks the Connect button.
+4. On failure: `sprinkle send snowflake '{"type":"deps-error","message":"<reason>"}'` — the sprinkle shows a Retry link.
+
+### Lick: `connect-repo` (Scoop panel)
+
+Payload: `{ repo: "<owner>/<name>", branch: "<branch>" }`.
+
+Split `repo` on `/` into `<owner>` and `<name>` (e.g. `ai-ecoverse/snowflake` → owner `ai-ecoverse`, name `snowflake`). These names are reused throughout the rest of the flow — the local clone always lives at `/workspace/<name>`.
+
+The `branch` field is pre-filled with a fresh short hash on each sprinkle load. Treat the value as authoritative — the user may have replaced it with an existing branch name they want to target.
+
+Steps:
+
+1. If `/workspace/<name>/.git` doesn't exist, clone there: `git clone https://github.com/<owner>/<name> /workspace/<name>`. Always use the repo basename as the directory — the upload step depends on this.
+2. `git fetch origin` to sync remote refs.
+3. Resolve `<branch>` in this order:
+   - Local branch `<branch>` exists → `git checkout <branch>`.
+   - Remote branch `origin/<branch>` exists → `git checkout -b <branch> origin/<branch>` (tracks remote).
+   - Otherwise → create it from the origin default branch: `git checkout -b <branch> origin/main` (fall back to `origin/master` when main is absent).
+4. Push: `sprinkle send snowflake '{"type":"repo-connected"}'` so the UI advances to the Sprinkle panel.
+
+On any failure, push `sprinkle send snowflake '{"type":"error","message":"<reason>"}'` and let the user retry from the Scoop panel.
+
+### Sprinkle panel — no lick
+
+The Sprinkle panel walks the chosen folder on its own using `slicc.readDir` and `slicc.stat`, filters `.html` files, and renders the tree directly. There is no agent round-trip for file discovery; trust the `files` payload that arrives with `start-conversion`.
+
+### Lick: `start-conversion` (Swirl panel)
+
+Payload: `{ files: ["<absolute path>", ...] }` — every entry is an `.html` path the sprinkle has already verified via the bridge. No re-validation needed.
+
+**Do not use `scoop_wait` for this lick.** Perform the conversion work directly in the cone or dispatch a fire-and-forget scoop; do not gate progress on a wait timer. Completion is signalled by the `conversion-complete` sprinkle push, not by scoop resolution.
+
+The conversion runs in two phases: a one-time **site setup** that produces site-wide artifacts, then a **per-file loop** that scaffolds each page. **Do not collapse the two — running site-setup tasks per-file silently overwrites prior work; skipping them entirely leaves the site without global tokens, fonts, buttons, or chrome and every page renders unstyled.**
+
+#### Phase 1 — site setup (run ONCE for the whole batch, before any per-file work)
+
+Run Steps 1–6 from the [Steps](#steps) section below in order. None of them are per-file:
+
+1. **Audit** (Step 1) — cross-file section inventory of every prototype.
+2. **Decide names + reuse** (Step 2) — lock block naming and reuse decisions across the whole batch.
+3. **Foundation** (Step 3) — write `styles/styles.css` with `:root` tokens, reset, and the EDS section scaffold.
+4. **Self-host fonts** (Step 4) — fetch woff2 files into `styles/fonts/`, write `@font-face` declarations in `styles/styles.css`, and set up the `body.session` metric-matched fallback pattern.
+5. **Button system** (Step 5) — append the global button CSS to `styles/styles.css`.
+6. **Chrome** (Step 6) — write `blocks/header/{header.js,header.css}`, `blocks/footer/{footer.js,footer.css}`, and the fragment pair at `content/fragments/{nav.html,footer.html}` (the navigation lives in `nav.html`, not `header.html` — standard EDS layout). One header block, one footer block, one fragment pair — shared by every page.
+
+Phase 1 produces no `conversion-progress` events; the Swirl panel just shows the bar at 0 / N until the first per-file event in Phase 2.
+
+#### Phase 2 — per-file conversion
+
+For each file in `files`, in order, push two `conversion-progress` events around **only the per-page work (Steps 7–9: block JS scaffold + content page scaffold)**. The global setup is already done.
+
+```
+sprinkle send snowflake '{"type":"conversion-progress","file":"<path>","status":"running","current":<i>,"total":<N>}'
+# ...run Steps 7–9 below for this file...
+sprinkle send snowflake '{"type":"conversion-progress","file":"<path>","status":"done","current":<i>,"total":<N>}'
+```
+
+`current` is 1-based; `total` is `files.length`. Use `"status":"error"` on per-file failure and continue with the rest — a single bad file shouldn't abort the batch.
+
+When all files are processed, commit and push to the branch resolved during `connect-repo` (and optionally open a PR), then advance the UI to the Serve panel by emitting:
+
+```
+sprinkle send snowflake '{"type":"conversion-complete","files":["<basename1>","<basename2>",...],"fragments":["nav","footer"],"branch":"<branch>","branchUrl":"https://github.com/<owner>/<name>/tree/<branch>","blocks":<N>,"prUrl":"<optional>"}'
+```
+
+`files` are the converted page basenames **without** the `.html` extension (e.g. `home` for `home.html`). `fragments` are the chrome fragment basenames (always `["nav", "footer"]` in this skill — the chrome pair authored in Step 6). `branchUrl` becomes the "View on GitHub" link in the Serve panel's branch card. `blocks` is the total EDS blocks generated.
+
+The conversion handler ends here. The sprinkle renders the Serve panel with two sections (Fragments and Documents), all stages pending, and **immediately fires a `start-deploy` lick** to re-engage the cone for the actual deployment — see the next section.
+
+### Lick: `start-deploy` (auto-fired by the sprinkle after `conversion-complete`)
+
+Payload: `{ files: ["<basename>", ...], fragments: ["header","footer"], branch: "<branch>" }` — the same arrays and branch the sprinkle just received in `conversion-complete`. `<owner>` and `<name>` are still the values resolved during `connect-repo`.
+
+This lick exists so the deploy sequence is event-driven and cannot be silently skipped. **Begin the upload → preview → publish sequence as soon as you receive it; do not wait for any further user input.**
+
+**Deploy fragments first, then pages.** Pages reference fragments by path via the `metadata` block — once both are live the references resolve. Every `deploy-progress` event MUST carry `kind: "fragment"` or `kind: "page"` so the sprinkle routes the update to the correct section of the Serve panel.
+
+#### URL templates
+
+| Kind     | Local path                                       | Upload URL (DA put)                                                  | DA Edit URL (`daUrl`)                                            | Live URL (`liveUrl`)                                                       |
+| -------- | ------------------------------------------------ | -------------------------------------------------------------------- | ---------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| fragment | `/workspace/<name>/content/fragments/<n>.html` | `https://main--<name>--<owner>.aem.page/<branch>/fragments/<n>` | `https://da.live/edit#/<owner>/<name>/<branch>/fragments/<n>` | `https://<branch>--<name>--<owner>.aem.live/<branch>/fragments/<n>` |
+| page     | `/workspace/<name>/content/<n>.html`             | `https://main--<name>--<owner>.aem.page/<branch>/<n>`               | `https://da.live/edit#/<owner>/<name>/<branch>/<n>`               | `https://<branch>--<name>--<owner>.aem.live/<branch>/<n>`               |
+
+The local file has the `.html` extension; the URLs do not. Use the branch host prefix (`<branch>--<name>--<owner>`) for `liveUrl`, never `main--`.
+
+#### Sequence per item
+
+For each item (parallelism is fine — the sprinkle is keyed by `kind + file + stage`), run three stages in order. Skip subsequent stages on a stage failure for that item; other items keep going.
+
+**1. Upload** — sanitise non-ASCII characters first, then `aem put`. DA strips `<head>` on ingestion and parses without a charset declaration, so any multibyte UTF-8 sequence (`·`, `–`, `→`, accented letters, emoji) gets corrupted to U+FFFD. The repo ships `tools/da/sanitise.js`, a zero-dependency Node script that rewrites all non-ASCII code points to named or numeric HTML entities in-place — entities survive the round-trip unchanged.
+
+```bash
+node tools/da/sanitise.js <local path>          # in-place, idempotent
+aem put <upload URL> <local path>
+```
+
+This applies to **every** uploaded file — both pages and fragments. Skipping it is the most common cause of corrupted typography in the deployed pages. The script is idempotent (running it twice is a no-op), so you can safely call it before each upload without checking whether the file is already clean.
+
+Surround the upload with:
+
+```
+sprinkle send snowflake '{"type":"deploy-progress","kind":"<kind>","file":"<n>","stage":"upload","status":"running"}'
+# ...sanitise + aem put...
+sprinkle send snowflake '{"type":"deploy-progress","kind":"<kind>","file":"<n>","stage":"upload","status":"done","daUrl":"<DA Edit URL>"}'
+```
+
+The `daUrl` activates the "DA Edit" button on that item's row.
+
+**2. Preview** — `aem preview` (or equivalent). Surround with `running` / `done` events; no URL needs to land on the row at this stage.
+
+**3. Publish** — `aem publish` (or equivalent). On `done`, include `liveUrl`:
+
+```
+sprinkle send snowflake '{"type":"deploy-progress","kind":"<kind>","file":"<n>","stage":"publish","status":"done","liveUrl":"<Live URL>"}'
+```
+
+On any failure, send `"status":"error"` with an optional `"message"` and move on — one bad item must not block the rest.
+
+When every item (fragments + pages) has reached its final stage, emit:
+
+```
+sprinkle send snowflake '{"type":"deploy-complete"}'
+```
+
+This is currently a no-op visually but reserved for future "all done" celebration / stats refresh.
+
 ## The one rule that drives everything else
 
 **One prototype `<section>` = one EDS block.** Do not abstract. Do not invent variants. Do not extract "patterns" across prototypes unless two sections are visually identical.
@@ -26,7 +183,7 @@ For a typical 5–10 page site:
 
 - **One block per distinct prototype section.** A 5-page site with 6 sections each → ~12–18 blocks (some are reused across pages, e.g. `closing`).
 - **One EDS content page per prototype page.** Same number of pages.
-- **Header + footer fragments** at `content/fragments/nav/{header,footer}.html`.
+- **Nav + footer fragments** at `content/fragments/{nav,footer}.html` (the navigation lives in `nav.html`, not `header.html`).
 - **Updated `styles/styles.css`** with brand tokens lifted from the prototype's `:root`, a reset, the EDS section scaffold, and a global button system (see "Lean on EDS button conventions" below). Nothing more.
 - **No shared utility modules.** No wave systems. No section-metadata style classes. No motion library. The prototype already encodes these per-section; keep them inside the owning block.
 
@@ -276,7 +433,7 @@ const linkCols    = cols.filter((c) => c !== lockupCol && c !== colophonCol && c
 
 Then rebuild into a chrome shape with the classes the CSS expects (`.lockup`, `.group`, `.colophon`, `.cta-btn`).
 
-Fragment files at `content/fragments/nav/{header,footer}.html` follow the EDS document shape:
+Fragment files at `content/fragments/{nav,footer}.html` follow the EDS document shape (the navigation file is `nav.html`, not `header.html` — the chrome `header` block reads it via `getMetadata('header')`):
 
 ```html
 <!DOCTYPE html>
@@ -352,6 +509,8 @@ export default async function decorate(block) {
 
 ### 9. Content page scaffold
 
+Every page MUST end with a `metadata` section pointing at the branch-prefixed nav + footer fragments. The author-kit's chrome blocks (`blocks/header/header.js`, `blocks/footer/footer.js`) read these via `getMetadata('header')` / `getMetadata('footer')` and call `loadFragment` against the resolved path. The metadata KEYS are `header` and `footer` (matching what the chrome blocks query), but the VALUES point at `/fragments/nav` and `/fragments/footer` — `nav` for the navigation, `footer` for the footer. Without the `metadata` block, the chrome blocks fall back to the kit defaults — root-level paths that don't exist when content is uploaded under a branch folder, so every page renders with no nav and no footer.
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -367,11 +526,19 @@ export default async function decorate(block) {
     <div>
       <!-- next section -->
     </div>
+    <div>
+      <div class="metadata">
+        <div><div>header</div><div>/<branch>/fragments/nav</div></div>
+        <div><div>footer</div><div>/<branch>/fragments/footer</div></div>
+      </div>
+    </div>
   </main>
   <footer></footer>
 </body>
 </html>
 ```
+
+`<branch>` is the same value resolved during `connect-repo`. EDS at delivery time turns the `metadata` block into `<meta name="header" …>` / `<meta name="footer" …>` tags in `<head>`, which `getMetadata(...)` then reads — there's no `blocks/metadata/` because the conversion is handled upstream.
 
 **Do NOT emit a `<head>` element.** EDS content pages are markdown-equivalent fragments: the document chrome (title, meta, stylesheets, scripts) lives in the project's `head.html`, which EDS injects at delivery time. A `<head>` block in a content page is dead weight at best and a duplication conflict at worst. Same rule applies to fragment files (`content/fragments/**`).
 
@@ -422,6 +589,7 @@ Not every link is a button. Whole-card tile anchors, tel:/mailto: channel values
 - [ ] Each section in the prototype `<main>` has a corresponding block call in the content page.
 - [ ] **No `<head>` element.** The page goes `<!DOCTYPE html><html><body>…</body></html>` — EDS injects the project `head.html` at delivery. Fragment files follow the same rule.
 - [ ] `<header></header>` and `<footer></footer>` are EMPTY (chrome resolves via fragments).
+- [ ] Page ends with a `metadata` block pointing `header` → `/<branch>/fragments/nav` and `footer` → `/<branch>/fragments/footer` so the chrome blocks load the branch-isolated fragments instead of the root defaults.
 - [ ] Image URLs are fully qualified (`https://main--…/stardust/prototypes/images/…`).
 - [ ] No `<style>` or `<script>` tags in the content page.
 - [ ] No section-metadata blocks.

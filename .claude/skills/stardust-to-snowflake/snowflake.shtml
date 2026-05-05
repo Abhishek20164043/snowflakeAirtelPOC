@@ -1,32 +1,37 @@
 <!DOCTYPE html>
-<html data-sprinkle-autoopen>
+<html data-sprinkle-autoopen data-sprinkle-icon='<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-snowflake-icon lucide-snowflake"><path d="m10 20-1.25-2.5L6 18"/><path d="M10 4 8.75 6.5 6 6"/><path d="m14 20 1.25-2.5L18 18"/><path d="m14 4 1.25 2.5L18 6"/><path d="m17 21-3-6h-4"/><path d="m17 3-3 6 1.5 3"/><path d="M2 12h6.5L10 9"/><path d="m20 10-1.5 2 1.5 2"/><path d="M22 12h-6.5L14 15"/><path d="m4 10 1.5 2L4 14"/><path d="m7 21 3-6-1.5-3"/><path d="m7 3 3 6h4"/></svg>'>
 <head>
   <title>Snowflake</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html, body { height: 100%; }
+
     body {
       font-family: var(--s2-font-family, system-ui, -apple-system, sans-serif);
       background: var(--s2-bg-base, #1a1a2e);
       color: var(--s2-content-default, #e0e0e0);
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
     }
 
     /* Header */
     .sf-header {
+      flex-shrink: 0;
       display: flex;
       align-items: center;
       gap: 12px;
       padding: 16px 20px;
       border-bottom: 1px solid var(--s2-border-default, rgba(255,255,255,0.08));
+      max-height: var(--uxc-thread-header-height, 56px);
     }
 
     .sf-header__logo {
       width: 32px;
       height: 32px;
       position: relative;
+      color: #a78bfa;
     }
 
     .sf-header__logo svg {
@@ -58,6 +63,7 @@
 
     /* Stepper */
     .sf-stepper {
+      flex-shrink: 0;
       display: flex;
       padding: 16px 20px;
       gap: 4px;
@@ -102,7 +108,8 @@
 
     /* Main content */
     .sf-content {
-      flex: 1;
+      flex: 1 1 auto;
+      min-height: 0;
       padding: 20px;
       overflow-y: auto;
     }
@@ -332,59 +339,164 @@
       transition: width 0.4s ease;
     }
 
-    /* Deploy summary */
-    .sf-summary {
-      background: var(--s2-bg-layer-2, rgba(255,255,255,0.04));
+    /* Serve panel — branch card */
+    .sf-serve__branch {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
       border-radius: 12px;
-      padding: 20px;
-      margin: 16px 0;
-    }
-
-    .sf-summary__title {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .sf-summary__subtitle {
-      font-size: 12px;
-      color: var(--s2-content-secondary, #888);
+      background: var(--s2-bg-layer-2, rgba(255,255,255,0.04));
+      border: 1px solid var(--s2-border-default, rgba(255,255,255,0.08));
       margin-bottom: 16px;
     }
 
-    .sf-summary__stat {
+    .sf-serve__branch-icon {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      color: var(--s2-content-secondary, #888);
+    }
+
+    .sf-serve__branch-info {
+      flex: 1;
+      min-width: 0;
       display: flex;
-      justify-content: space-between;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--s2-border-default, rgba(255,255,255,0.06));
+      flex-direction: column;
+      gap: 2px;
     }
 
-    .sf-summary__stat:last-child {
-      border-bottom: none;
-    }
-
-    .sf-summary__stat-label {
-      font-size: 13px;
-      color: var(--s2-content-secondary, #aaa);
-    }
-
-    .sf-summary__stat-value {
-      font-size: 13px;
+    .sf-serve__branch-name {
+      font-size: 14px;
       font-weight: 600;
+      font-family: var(--s2-font-mono, monospace);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
-    .sf-summary__link {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
+    .sf-serve__branch-link {
+      font-size: 12px;
       color: #a78bfa;
       text-decoration: none;
-      font-size: 13px;
-      font-weight: 500;
     }
 
-    .sf-summary__link:hover {
-      text-decoration: underline;
+    .sf-serve__branch-link:hover { text-decoration: underline; }
+
+    /* Serve panel — document rows */
+    .sf-doc {
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: var(--s2-bg-layer-2, rgba(255,255,255,0.04));
+      border: 1px solid var(--s2-border-default, rgba(255,255,255,0.06));
+      margin-bottom: 8px;
+    }
+
+    .sf-doc__name {
+      font-size: 13px;
+      font-weight: 600;
+      font-family: var(--s2-font-mono, monospace);
+      margin-bottom: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .sf-doc__stages {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .sf-doc__stage {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: var(--s2-content-secondary, #888);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .sf-doc__stage-icon {
+      width: 14px;
+      height: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      line-height: 1;
+    }
+
+    .sf-doc__stage--pending .sf-doc__stage-icon { color: var(--s2-content-secondary, #555); opacity: 0.5; }
+    .sf-doc__stage--running .sf-doc__stage-icon { color: #a78bfa; animation: pulse 1.5s ease infinite; }
+    .sf-doc__stage--done    .sf-doc__stage-icon { color: var(--s2-positive, #4ade80); }
+    .sf-doc__stage--error   .sf-doc__stage-icon { color: var(--s2-negative, #f87171); }
+
+    .sf-doc__stage--running .sf-doc__stage-label,
+    .sf-doc__stage--done    .sf-doc__stage-label { color: var(--s2-content-default, #e0e0e0); }
+
+    .sf-doc__links {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .sf-doc__link {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 12px;
+      border: 1px solid var(--s2-border-default, rgba(255,255,255,0.1));
+      background: transparent;
+      color: #a78bfa;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .sf-doc__link:hover {
+      background: rgba(167,139,250,0.1);
+    }
+
+    .sf-doc__link--disabled {
+      pointer-events: none;
+      opacity: 0.35;
+      color: var(--s2-content-secondary, #888);
+    }
+
+    .sf-serve__stats {
+      font-size: 12px;
+      color: var(--s2-content-secondary, #888);
+      text-align: center;
+      padding: 8px 0 4px;
+    }
+
+    .sf-serve__pr {
+      text-align: center;
+      padding: 4px 0 12px;
+    }
+
+    .sf-serve__pr a {
+      font-size: 12px;
+      color: #a78bfa;
+      text-decoration: none;
+    }
+
+    .sf-serve__pr a:hover { text-decoration: underline; }
+
+    /* Section heading inside the Serve panel (Fragments / Documents). */
+    .sf-serve__section-heading {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--s2-content-secondary, #888);
+      margin: 4px 0 8px;
+    }
+
+    #fragmentsContainer + #documentsContainer .sf-serve__section-heading {
+      margin-top: 16px;
     }
 
     /* Select all / none toolbar */
@@ -418,6 +530,7 @@
 
     /* Footer actions */
     .sf-footer {
+      flex-shrink: 0;
       padding: 16px 20px;
       border-top: 1px solid var(--s2-border-default, rgba(255,255,255,0.08));
       display: flex;
@@ -427,12 +540,54 @@
 
     /* Snowflake flavor */
     .sf-flavor {
+      flex-shrink: 0;
       font-size: 11px;
       color: var(--s2-content-secondary, #666);
       text-align: center;
       padding: 8px;
       font-style: italic;
     }
+
+    /* Setup banner */
+    .sf-setup {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: var(--s2-bg-layer-2, rgba(255,255,255,0.04));
+      border: 1px solid var(--s2-border-default, rgba(255,255,255,0.1));
+      font-size: 12px;
+      color: var(--s2-content-secondary, #aaa);
+    }
+
+    .sf-setup__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #a78bfa;
+      animation: pulse 1.5s ease infinite;
+      flex-shrink: 0;
+    }
+
+    .sf-setup--error {
+      border-color: var(--s2-negative, #f87171);
+      color: var(--s2-content-default, #e0e0e0);
+    }
+
+    .sf-setup--error .sf-setup__dot {
+      background: var(--s2-negative, #f87171);
+      animation: none;
+    }
+
+    .sf-setup__msg a {
+      color: #a78bfa;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .sf-setup__msg a:hover { text-decoration: underline; }
 
     /* Empty state */
     .sf-empty {
@@ -456,17 +611,7 @@
   <!-- Header -->
   <div class="sf-header">
     <div class="sf-header__logo" id="logo">
-      <svg viewBox="0 0 32 32" fill="none">
-        <path d="M16 2L18.5 8.5L25 6L20.5 12L28 14L20.5 16L25 22L18.5 19.5L16 26L13.5 19.5L7 22L11.5 16L4 14L11.5 12L7 6L13.5 8.5Z"
-          stroke="url(#grad)" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="16" cy="14" r="3" fill="url(#grad)" opacity="0.6"/>
-        <defs>
-          <linearGradient id="grad" x1="4" y1="2" x2="28" y2="26">
-            <stop offset="0%" stop-color="#a78bfa"/>
-            <stop offset="100%" stop-color="#67e8f9"/>
-          </linearGradient>
-        </defs>
-      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-snowflake-icon lucide-snowflake"><path d="m10 20-1.25-2.5L6 18"/><path d="M10 4 8.75 6.5 6 6"/><path d="m14 20 1.25-2.5L18 18"/><path d="m14 4 1.25 2.5L18 6"/><path d="m17 21-3-6h-4"/><path d="m17 3-3 6 1.5 3"/><path d="M2 12h6.5L10 9"/><path d="m20 10-1.5 2 1.5 2"/><path d="M22 12h-6.5L14 15"/><path d="m4 10 1.5 2L4 14"/><path d="m7 21 3-6-1.5-3"/><path d="m7 3 3 6h4"/></svg>
     </div>
     <div class="sf-header__title">Snowflake</div>
     <div class="sf-header__subtitle">every page is unique</div>
@@ -497,17 +642,21 @@
 
     <!-- Step 1: Scoop (repo) -->
     <div class="sf-panel sf-panel--active" id="panel-0">
+      <div class="sf-setup" id="setupBanner" style="display:none">
+        <div class="sf-setup__dot"></div>
+        <div class="sf-setup__msg" id="setupMsg">Loading&hellip;</div>
+      </div>
       <div class="sf-field">
         <label class="sf-field__label">GitHub Repository</label>
         <input type="text" class="sf-field__input" id="repoInput"
-          value="adobe/aem-boilerplate" placeholder="owner/repo">
+          value="ai-ecoverse/snowflake" placeholder="owner/repo">
         <div class="sf-field__hint">The EDS project to commit generated blocks to</div>
       </div>
       <div class="sf-field">
         <label class="sf-field__label">Branch (optional)</label>
         <input type="text" class="sf-field__input" id="branchInput"
           placeholder="main" style="font-family: var(--s2-font-mono, monospace)">
-        <div class="sf-field__hint">Leave empty to create a new snowflake branch</div>
+        <div class="sf-field__hint">Each snowflake gets a unique branch &mdash; edit to target an existing one</div>
       </div>
     </div>
 
@@ -545,11 +694,11 @@
 
     <!-- Step 4: Serve (deploy) -->
     <div class="sf-panel" id="panel-3">
-      <div class="sf-summary" id="summaryContainer">
-        <div class="sf-summary__title">Fresh batch served</div>
-        <div class="sf-summary__subtitle">Migration complete</div>
-        <div id="summaryStats"></div>
-      </div>
+      <div id="branchCard"></div>
+      <div id="fragmentsContainer"></div>
+      <div id="documentsContainer"></div>
+      <div class="sf-serve__stats" id="serveStats"></div>
+      <div class="sf-serve__pr" id="prLink"></div>
     </div>
   </div>
 
@@ -569,8 +718,13 @@
       folder: '',
       files: [],
       selectedFiles: [],
-      results: []
+      results: [],
+      depsReady: false
     };
+
+    var DEPS_AEM_PATH = '/workspace/skills/aem/SKILL.md';
+    var DEPS_CHECK_TIMEOUT_MS = 5000;
+    var checkDepsRunning = false;
 
     var stepLabels = ['Connect', 'Convert', 'Converting...', 'Done'];
     var flavorTexts = ['freshly scooped', 'pick your sprinkles', 'swirling it together', 'ready to serve'];
@@ -594,7 +748,7 @@
       var nextBtn = document.getElementById('nextBtn');
       backBtn.style.display = n > 0 && n < 3 ? '' : 'none';
 
-      if (n === 0) { nextBtn.textContent = 'Connect'; nextBtn.disabled = false; }
+      if (n === 0) { nextBtn.textContent = 'Connect'; nextBtn.disabled = !state.depsReady; }
       else if (n === 1) { nextBtn.textContent = 'Convert'; nextBtn.disabled = state.selectedFiles.length === 0; }
       else if (n === 2) { nextBtn.textContent = 'Converting...'; nextBtn.disabled = true; }
       else if (n === 3) { nextBtn.textContent = 'Close'; nextBtn.disabled = false; }
@@ -631,7 +785,7 @@
     }
 
     var scanPending = false;
-    function scanFolder() {
+    async function scanFolder() {
       var input = document.getElementById('folderInput');
       var path = input.value.trim();
       if (!path) {
@@ -643,11 +797,68 @@
       if (scanPending) return;
       scanPending = true;
       state.folder = path;
-      slicc.lick({ action: 'select-folder', data: { path: path } });
-      setTimeout(function() { scanPending = false; }, 2000);
+
+      var container = document.getElementById('fileTreeContainer');
+      container.innerHTML =
+        '<div class="sf-empty"><div class="sf-empty__icon">&#10052;</div>' +
+        '<div class="sf-empty__text">Scanning &hellip;</div></div>';
+
+      try {
+        var files = [];
+        await walkHtml(path, files, true);
+        if (files.length === 0) {
+          container.innerHTML =
+            '<div class="sf-empty"><div class="sf-empty__icon">&#10052;</div>' +
+            '<div class="sf-empty__text">No .html files found in ' + escapeHtml(path) + '</div></div>';
+        } else {
+          renderFileTree(files);
+        }
+      } catch (err) {
+        container.innerHTML =
+          '<div class="sf-empty"><div class="sf-empty__icon">&#9888;</div>' +
+          '<div class="sf-empty__text">Could not scan: ' + escapeHtml(err.message || String(err)) + '</div></div>';
+      } finally {
+        scanPending = false;
+      }
+    }
+
+    async function walkHtml(dir, out, isRoot) {
+      var entries;
+      try {
+        entries = await slicc.readDir(dir);
+      } catch (e) {
+        if (isRoot) throw e;
+        console.warn('snowflake: skip unreadable dir', dir, e);
+        return;
+      }
+      for (var i = 0; i < entries.length; i++) {
+        var entry = entries[i];
+        var full = dir.replace(/\/+$/, '') + '/' + entry.name;
+        if (entry.type === 'directory') {
+          await walkHtml(full, out, false);
+        } else if (entry.type === 'file' && entry.name.toLowerCase().endsWith('.html')) {
+          var size = 0;
+          try {
+            var s = await slicc.stat(full);
+            size = s.size || 0;
+          } catch (e) {
+            console.warn('snowflake: stat failed', full, e);
+          }
+          out.push({ path: full, name: entry.name, size: size });
+        }
+      }
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, function(c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
     }
 
     function renderFileTree(files) {
+      files.sort(function(a, b) {
+        return a.path.toLowerCase().localeCompare(b.path.toLowerCase());
+      });
       state.files = files;
       state.selectedFiles = files.map(function(f) { return f.path; });
 
@@ -758,46 +969,315 @@
       document.getElementById('progressFill').style.width = pct + '%';
       document.getElementById('progressCount').textContent = data.current + ' / ' + data.total;
 
-      if (data.current === data.total) {
+      // Only flip to "All done" once the last file reaches a terminal
+      // state — otherwise the running event of the last file (current ===
+      // total) prematurely claims completion while conversion is still in
+      // flight.
+      if (data.current === data.total && (data.status === 'done' || data.status === 'error')) {
         document.getElementById('progressLabel').textContent = 'All done';
       }
     }
 
-    function showSummary(data) {
+    var GIT_BRANCH_ICON_SVG =
+      '<svg class="sf-serve__branch-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+      '<line x1="6" y1="3" x2="6" y2="15"></line>' +
+      '<circle cx="18" cy="6" r="3"></circle>' +
+      '<circle cx="6" cy="18" r="3"></circle>' +
+      '<path d="M18 9a9 9 0 0 1-9 9"></path>' +
+      '</svg>';
+
+    var STAGES = [
+      { key: 'upload', label: 'Upload' },
+      { key: 'preview', label: 'Preview' },
+      { key: 'publish', label: 'Publish' }
+    ];
+
+    function showServe(data) {
       setStep(3);
-      var html = '';
-      html += '<div class="sf-summary__stat"><span class="sf-summary__stat-label">Files converted</span><span class="sf-summary__stat-value">' + (data.converted || 0) + '</span></div>';
-      html += '<div class="sf-summary__stat"><span class="sf-summary__stat-label">Blocks generated</span><span class="sf-summary__stat-value">' + (data.blocks || 0) + '</span></div>';
-      html += '<div class="sf-summary__stat"><span class="sf-summary__stat-label">Branch</span><span class="sf-summary__stat-value">' + (data.branch || '—') + '</span></div>';
+
+      // Branch card
+      var branchHtml = GIT_BRANCH_ICON_SVG;
+      branchHtml += '<div class="sf-serve__branch-info">';
+      branchHtml += '<div class="sf-serve__branch-name">' + escapeHtml(data.branch || '—') + '</div>';
+      if (data.branchUrl) {
+        branchHtml += '<a class="sf-serve__branch-link" href="' + escapeHtml(data.branchUrl) +
+          '" target="_blank" rel="noopener">View on GitHub &#8594;</a>';
+      }
+      branchHtml += '</div>';
+      var branchCard = document.getElementById('branchCard');
+      branchCard.className = 'sf-serve__branch';
+      branchCard.innerHTML = branchHtml;
+
+      // Fragments + Documents
+      var fragments = Array.isArray(data.fragments) ? data.fragments : [];
+      var files = Array.isArray(data.files) ? data.files : [];
+      renderItemSection('fragmentsContainer', 'Fragments', fragments);
+      renderItemSection('documentsContainer', 'Documents', files);
+
+      // Stats
+      var stats = files.length + ' file' + (files.length === 1 ? '' : 's');
+      if (typeof data.blocks === 'number') {
+        stats += ' &middot; ' + data.blocks + ' block' + (data.blocks === 1 ? '' : 's') + ' generated';
+      }
+      document.getElementById('serveStats').innerHTML = stats;
+
+      // PR link (optional)
+      var prEl = document.getElementById('prLink');
       if (data.prUrl) {
-        html += '<div class="sf-summary__stat"><span class="sf-summary__stat-label">Pull Request</span><span class="sf-summary__stat-value"><a class="sf-summary__link" href="' + data.prUrl + '" target="_blank">View PR &#8594;</a></span></div>';
+        prEl.innerHTML = '<a href="' + escapeHtml(data.prUrl) + '" target="_blank" rel="noopener">View Pull Request &#8594;</a>';
+      } else {
+        prEl.innerHTML = '';
       }
-      if (data.daUrl) {
-        html += '<div class="sf-summary__stat"><span class="sf-summary__stat-label">DA Content</span><span class="sf-summary__stat-value"><a class="sf-summary__link" href="' + data.daUrl + '" target="_blank">View in DA &#8594;</a></span></div>';
+    }
+
+    function renderDocRow(name) {
+      var safe = escapeHtml(name);
+      var stagesHtml = '';
+      STAGES.forEach(function(s) {
+        stagesHtml +=
+          '<div class="sf-doc__stage sf-doc__stage--pending" data-stage="' + s.key + '">' +
+            '<div class="sf-doc__stage-icon">&#9711;</div>' +
+            '<span class="sf-doc__stage-label">' + s.label + '</span>' +
+          '</div>';
+      });
+      return '<div class="sf-doc" data-file="' + safe + '">' +
+        '<div class="sf-doc__name">' + safe + '</div>' +
+        '<div class="sf-doc__stages">' + stagesHtml + '</div>' +
+        '<div class="sf-doc__links">' +
+          '<a class="sf-doc__link sf-doc__link--disabled" data-link="da" target="_blank" rel="noopener">DA Edit</a>' +
+          '<a class="sf-doc__link sf-doc__link--disabled" data-link="live" target="_blank" rel="noopener">Published</a>' +
+        '</div>' +
+      '</div>';
+    }
+
+    function renderItemSection(containerId, label, items) {
+      var container = document.getElementById(containerId);
+      if (!items || items.length === 0) {
+        container.innerHTML = '';
+        return;
       }
-      document.getElementById('summaryStats').innerHTML = html;
+      var html = '<div class="sf-serve__section-heading">' + label + '</div>';
+      items.forEach(function(name) { html += renderDocRow(name); });
+      container.innerHTML = html;
+    }
+
+    function findDocRow(file, kind) {
+      var containerId = kind === 'fragment' ? 'fragmentsContainer' : 'documentsContainer';
+      var rows = document.querySelectorAll('#' + containerId + ' .sf-doc');
+      for (var i = 0; i < rows.length; i++) {
+        if (rows[i].getAttribute('data-file') === file) return rows[i];
+      }
+      return null;
+    }
+
+    function updateDeployProgress(data) {
+      var kind = data.kind || 'page';
+      var row = findDocRow(data.file, kind);
+      if (!row) {
+        console.warn('snowflake: deploy-progress for unknown', kind, data.file);
+        return;
+      }
+      var stage = row.querySelector('.sf-doc__stage[data-stage="' + data.stage + '"]');
+      if (stage) {
+        stage.className = 'sf-doc__stage sf-doc__stage--' + (data.status || 'pending');
+        var icon = stage.querySelector('.sf-doc__stage-icon');
+        if (data.status === 'pending') icon.innerHTML = '&#9711;';
+        else if (data.status === 'running') icon.innerHTML = '&#9679;';
+        else if (data.status === 'done') icon.innerHTML = '&#10003;';
+        else if (data.status === 'error') icon.innerHTML = '&#10007;';
+      }
+      if (data.daUrl) activateLink(row, 'da', data.daUrl);
+      if (data.liveUrl) activateLink(row, 'live', data.liveUrl);
+    }
+
+    function activateLink(row, kind, url) {
+      var link = row.querySelector('.sf-doc__link[data-link="' + kind + '"]');
+      if (!link) return;
+      link.href = url;
+      link.classList.remove('sf-doc__link--disabled');
     }
 
     // Bridge
     slicc.on('update', function(data) {
       if (data.type === 'repo-connected') {
         setStep(1);
-      } else if (data.type === 'file-list') {
-        renderFileTree(data.files);
       } else if (data.type === 'conversion-progress') {
         updateProgress(data);
       } else if (data.type === 'conversion-complete') {
-        showSummary(data);
+        showServe(data);
+        // Re-engage the cone to start the deploy sequence. Without this,
+        // the cone reads conversion-complete as the end of its handler
+        // and the SERVE panel sits idle. (Bug 002.)
+        slicc.lick({
+          action: 'start-deploy',
+          data: {
+            files: data.files || [],
+            fragments: data.fragments || [],
+            branch: data.branch
+          }
+        });
+      } else if (data.type === 'deploy-progress') {
+        updateDeployProgress(data);
       } else if (data.type === 'deploy-complete') {
-        showSummary(data);
+        // Final signal — nothing to do beyond what deploy-progress already did,
+        // but kept for symmetry / future stats updates.
+      } else if (data.type === 'deps-installed') {
+        // Trust the cone's ack — it explicitly verifies before sending.
+        // Avoids a post-install live check that could hit the re-open
+        // bridge hang.
+        console.log('[snowflake] deps-installed received, marking ready');
+        markDepsReady();
+      } else if (data.type === 'deps-error') {
+        setDepsCache(false);
+        showSetupBanner(
+          'Could not install dependencies: ' + escapeHtml(data.message || 'unknown error') +
+          ' <a href="#" onclick="checkDeps({force:true});return false;">Retry</a>',
+          true
+        );
       } else if (data.type === 'error') {
         alert(data.message);
         document.getElementById('nextBtn').disabled = false;
       }
     });
 
+    function getDepsCache() {
+      try {
+        var s = slicc.getState && slicc.getState();
+        return s && typeof s === 'object' ? s : null;
+      } catch (_) { return null; }
+    }
+
+    function setDepsCache(ready) {
+      try {
+        if (slicc.setState) slicc.setState({ depsReady: !!ready });
+      } catch (_) { /* ignore */ }
+    }
+
+    function markDepsReady() {
+      state.depsReady = true;
+      setDepsCache(true);
+      hideSetupBanner();
+      if (state.step === 0) {
+        document.getElementById('nextBtn').disabled = false;
+      }
+    }
+
+    async function checkDeps(opts) {
+      opts = opts || {};
+      // Guard against concurrent calls — deps-installed acks can fire fast
+      // and a re-entrant check piles work onto a possibly-stuck bridge.
+      if (checkDepsRunning) {
+        console.log('[snowflake] checkDeps: already running, skipping concurrent call');
+        return;
+      }
+      checkDepsRunning = true;
+      try {
+        // Cache fast-path: once a previous open confirmed the aem skill is
+        // present, trust that on subsequent opens. Skips slicc.exists,
+        // which has been observed to hang after sprinkle close+reopen.
+        // Bypassed when the caller passes {force:true} (Retry link).
+        if (!opts.force) {
+          var cached = getDepsCache();
+          if (cached && cached.depsReady) {
+            console.log('[snowflake] checkDeps: cached depsReady=true, skipping live check');
+            markDepsReady();
+            return;
+          }
+        }
+
+        console.log('[snowflake] checkDeps: checking', DEPS_AEM_PATH);
+        showSetupBanner('Checking aem skill&hellip;', false);
+        // Wrap in a timeout — surface a clear error instead of leaving
+        // the banner stuck on "Checking..." if slicc.exists hangs.
+        var hasAem = await Promise.race([
+          slicc.exists(DEPS_AEM_PATH),
+          new Promise(function (_, reject) {
+            setTimeout(function () {
+              reject(new Error('check timed out after ' + (DEPS_CHECK_TIMEOUT_MS / 1000) + 's'));
+            }, DEPS_CHECK_TIMEOUT_MS);
+          }),
+        ]);
+        console.log('[snowflake] checkDeps: hasAem =', hasAem);
+        if (hasAem) {
+          markDepsReady();
+          return;
+        }
+        state.depsReady = false;
+        setDepsCache(false);
+        showSetupBanner('Installing aem skill from ai-ecoverse/skills&hellip;', false);
+        slicc.lick({ action: 'install-deps' });
+      } catch (err) {
+        console.error('[snowflake] checkDeps error:', err);
+        // Timeout = slicc bridge is stuck. Proceed optimistically rather
+        // than blocking the user with a scary "Setup error" banner —
+        // the skill is almost certainly present (it's the prerequisite
+        // for opening this sprinkle in the first place), and if it
+        // genuinely isn't, the cone will surface a real error when it
+        // tries to use it. Cache the optimistic state so subsequent
+        // opens skip the broken FS check entirely.
+        if (err && /timed out/.test(err.message || '')) {
+          console.warn('[snowflake] checkDeps: timed out — assuming aem skill is present and proceeding');
+          markDepsReady();
+          return;
+        }
+        state.depsReady = false;
+        showSetupBanner(
+          'Setup error: ' + escapeHtml(err.message || String(err)) +
+          ' <a href="#" onclick="checkDeps({force:true});return false;">Retry</a>' +
+          ' <span style="opacity:0.5">|</span> ' +
+          '<a href="#" onclick="markDepsReady();return false;">Skip check</a>',
+          true
+        );
+      } finally {
+        checkDepsRunning = false;
+      }
+      if (state.step === 0) {
+        document.getElementById('nextBtn').disabled = true;
+      }
+    }
+
+    function showSetupBanner(html, isError) {
+      var banner = document.getElementById('setupBanner');
+      var msg = document.getElementById('setupMsg');
+      if (!banner || !msg) {
+        console.error('[snowflake] setup UI missing — banner:', !!banner, 'msg:', !!msg);
+        return;
+      }
+      banner.classList.toggle('sf-setup--error', !!isError);
+      msg.innerHTML = html;
+      banner.style.display = '';
+    }
+
+    function hideSetupBanner() {
+      var banner = document.getElementById('setupBanner');
+      if (banner) banner.style.display = 'none';
+    }
+
+    function generateBranchHash() {
+      var bytes = new Uint8Array(4);
+      crypto.getRandomValues(bytes);
+      return Array.from(bytes)
+        .map(function(b) { return b.toString(16).padStart(2, '0'); })
+        .join('')
+        .slice(0, 8);
+    }
+
+    // Sandboxed iframes silently swallow target="_blank" navigations from
+    // anchor clicks. Delegate every outbound click to window.top.open(),
+    // which is permitted because it escapes to the parent browsing context.
+    document.body.addEventListener('click', function(e) {
+      var link = e.target.closest('a[href]');
+      if (!link) return;
+      var href = link.getAttribute('href');
+      if (!href || href === '#') return;
+      e.preventDefault();
+      window.top.open(href, '_blank', 'noopener');
+    });
+
     // Init
+    document.getElementById('branchInput').value = generateBranchHash();
     setStep(0);
+    checkDeps();
   </script>
 </body>
 </html>
