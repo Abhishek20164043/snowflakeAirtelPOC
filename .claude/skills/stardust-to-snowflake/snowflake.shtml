@@ -767,10 +767,6 @@
       depsReady: false
     };
 
-    var DEPS_AEM_PATH = '/workspace/skills/aem/SKILL.md';
-    var DEPS_CHECK_TIMEOUT_MS = 5000;
-    var checkDepsRunning = false;
-
     var stepLabels = ['Connect', 'Convert', 'Converting...', 'Done'];
     var flavorTexts = ['freshly scooped', 'pick your sprinkles', 'swirling it together', 'ready to serve'];
 
@@ -1243,75 +1239,35 @@
       }
     }
 
-    async function checkDeps(opts) {
+    function checkDeps(opts) {
       opts = opts || {};
-      // Guard against concurrent calls — deps-installed acks can fire fast
-      // and a re-entrant check piles work onto a possibly-stuck bridge.
-      if (checkDepsRunning) {
-        console.log('[snowflake] checkDeps: already running, skipping concurrent call');
-        return;
-      }
-      checkDepsRunning = true;
-      try {
-        // Cache fast-path: once a previous open confirmed the aem skill is
-        // present, trust that on subsequent opens. Skips slicc.exists,
-        // which has been observed to hang after sprinkle close+reopen.
-        // Bypassed when the caller passes {force:true} (Retry link).
-        if (!opts.force) {
-          var cached = getDepsCache();
-          if (cached && cached.depsReady) {
-            console.log('[snowflake] checkDeps: cached depsReady=true, skipping live check');
-            markDepsReady();
-            return;
-          }
-        }
 
-        console.log('[snowflake] checkDeps: checking', DEPS_AEM_PATH);
-        showSetupBanner('Checking aem skill&hellip;', false);
-        // Wrap in a timeout — surface a clear error instead of leaving
-        // the banner stuck on "Checking..." if slicc.exists hangs.
-        var hasAem = await Promise.race([
-          slicc.exists(DEPS_AEM_PATH),
-          new Promise(function (_, reject) {
-            setTimeout(function () {
-              reject(new Error('check timed out after ' + (DEPS_CHECK_TIMEOUT_MS / 1000) + 's'));
-            }, DEPS_CHECK_TIMEOUT_MS);
-          }),
-        ]);
-        console.log('[snowflake] checkDeps: hasAem =', hasAem);
-        if (hasAem) {
+      // Cache fast-path: once a previous session confirmed the aem skill
+      // is present, trust that on subsequent opens.
+      // Bypassed when the caller passes {force:true} (Retry link).
+      if (!opts.force) {
+        var cached = getDepsCache();
+        if (cached && cached.depsReady) {
+          console.log('[snowflake] checkDeps: cached depsReady=true');
           markDepsReady();
           return;
         }
-        state.depsReady = false;
-        setDepsCache(false);
-        showSetupBanner('Installing aem skill from ai-ecoverse/skills&hellip;', false);
-        slicc.lick({ action: 'install-deps' });
-      } catch (err) {
-        console.error('[snowflake] checkDeps error:', err);
-        // Timeout = slicc bridge is stuck. Proceed optimistically rather
-        // than blocking the user with a scary "Setup error" banner —
-        // the skill is almost certainly present (it's the prerequisite
-        // for opening this sprinkle in the first place), and if it
-        // genuinely isn't, the cone will surface a real error when it
-        // tries to use it. Cache the optimistic state so subsequent
-        // opens skip the broken FS check entirely.
-        if (err && /timed out/.test(err.message || '')) {
-          console.warn('[snowflake] checkDeps: timed out — assuming aem skill is present and proceeding');
-          markDepsReady();
-          return;
-        }
-        state.depsReady = false;
-        showSetupBanner(
-          'Setup error: ' + escapeHtml(err.message || String(err)) +
-          ' <a href="#" onclick="checkDeps({force:true});return false;">Retry</a>' +
-          ' <span style="opacity:0.5">|</span> ' +
-          '<a href="#" onclick="markDepsReady();return false;">Skip check</a>',
-          true
-        );
-      } finally {
-        checkDepsRunning = false;
       }
+
+      // Don't use slicc.exists() here — the bridge's filesystem operations
+      // require the postMessage channel to be fully established, which isn't
+      // guaranteed when the sprinkle script first executes. The returned
+      // promise hangs indefinitely on first load.
+      //
+      // Instead, fire install-deps and let the cone handle verification.
+      // slicc.lick() is fire-and-forget (no round-trip) so it works
+      // immediately. The cone checks the filesystem directly, installs if
+      // needed, and acks with deps-installed or deps-error.
+      console.log('[snowflake] checkDeps: requesting cone to verify/install aem skill');
+      state.depsReady = false;
+      showSetupBanner('Installing aem skill&hellip;', false);
+      slicc.lick({ action: 'install-deps' });
+
       if (state.step === 0) {
         document.getElementById('nextBtn').disabled = true;
       }
@@ -1369,7 +1325,12 @@
     document.getElementById('branchInput').value = generateBranchHash();
     syncDaPlaceholders();
     setStep(0);
-    checkDeps();
+    // Defer checkDeps — slicc.lick() requires the bridge's postMessage
+    // channel to be established with the parent. On first render the
+    // inline script executes before the handshake completes, so lick
+    // calls made synchronously during init are silently dropped.
+    // A short delay lets the bridge connect (typically <50ms).
+    setTimeout(checkDeps, 500);
   </script>
 </body>
 </html>
