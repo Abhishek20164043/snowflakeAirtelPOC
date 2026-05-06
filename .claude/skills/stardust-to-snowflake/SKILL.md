@@ -1,6 +1,8 @@
 ---
 name: stardust-to-snowflake
 description: Convert stardust HTML prototypes (under stardust/prototypes/**) into Edge Delivery Services (EDS / AEM) blocks and content pages. Each prototype <section> becomes one EDS block; the prototype's per-section CSS becomes that block's CSS scoped under the block class. Use when the user wants to lift a stardust pipeline output (or any styled per-page HTML prototypes) into a working EDS site under blocks/ and content/.
+references:
+  - da-deploy-protocol.md
 ---
 
 # Stardust → EDS
