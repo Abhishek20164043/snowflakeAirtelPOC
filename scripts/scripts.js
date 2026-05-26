@@ -38,3 +38,5 @@ await loadPage();
   const hasQE = searchParams.has('quick-edit');
   if (hasQE) import('../tools/quick-edit/quick-edit.js').then((mod) => mod.default());
 }());
+
+// sync trigger 1779793173282
