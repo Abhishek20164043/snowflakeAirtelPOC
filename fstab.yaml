@@ -1,1 +1,2 @@
-
+mountpoints:
+  /: https://github.com/abhishek20164043/snowflakeAirtelPOC
