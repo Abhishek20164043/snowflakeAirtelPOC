@@ -1,0 +1,59 @@
+.promo-rail .promo-rail-wrap {
+  background: rgb(247 247 250);
+  border-bottom: 1px solid rgb(41 44 49 / 8%);
+}
+.promo-rail .promo-rail-inner {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: stretch;
+}
+.promo-rail .promo-pill {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 28px;
+  flex: 1;
+  border-right: 1px solid rgb(41 44 49 / 8%);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s;
+}
+.promo-rail .promo-pill:last-child { border-right: none; }
+.promo-rail .promo-pill:hover { background: rgb(41 44 49 / 3%); }
+.promo-rail .promo-pill-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--lavender);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.promo-rail .promo-pill-text { flex: 1; }
+.promo-rail .promo-pill-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--charcoal);
+}
+.promo-rail .promo-pill-sub {
+  font-size: 12px;
+  color: var(--grey);
+  margin-top: 1px;
+}
+.promo-rail .promo-pill-arrow { color: var(--grey); font-size: 14px; }
+@media (max-width: 1024px) {
+  .promo-rail .promo-rail-inner { padding: 0 24px; }
+}
+@media (max-width: 768px) {
+  .promo-rail .promo-rail-inner { padding: 0 20px; flex-direction: column; }
+  .promo-rail .promo-pill {
+    border-right: none;
+    border-bottom: 1px solid rgb(41 44 49 / 8%);
+  }
+  .promo-rail .promo-pill:last-child { border-bottom: none; }
+}

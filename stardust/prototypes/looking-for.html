@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<!-- saved from url=(0110)chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Airtel — What are you looking for?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="./Airtel — What are you looking for__files/css2" rel="stylesheet">
+<style>
+/* ─── RESET & BASE ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  color: rgb(41, 44, 49);
+  background: #fff;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; }
+
+/* ─── TOKENS ────────────────────────────────────────────────────────── */
+:root {
+  --red: #E40000;
+  --black: #000000;
+  --charcoal: rgb(41, 44, 49);
+  --grey: rgb(105, 107, 111);
+  --white: #ffffff;
+  --off-white: rgb(247, 247, 250);
+  --lavender: rgb(227, 229, 255);
+  --text-on-dark: rgb(246, 246, 246);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --max-w: 1280px;
+  --header-h: 64px;
+  /* Intent path colours */
+  --home-clr: #2563eb;
+  --mobile-clr: #16a34a;
+  --bank-clr: #9333ea;
+  --biz-clr: #ea580c;
+}
+
+/* ─── UTILITY ───────────────────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 40px;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--black); color: var(--text-on-dark);
+  font-weight: 800; font-size: 14px; letter-spacing: 0.5px;
+  padding: 12px 24px; border-radius: var(--radius-sm);
+  transition: background 0.18s, transform 0.15s;
+}
+.btn-primary:hover { background: #1a1a1a; transform: translateY(-1px); }
+.btn-red {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--red); color: #fff;
+  font-weight: 800; font-size: 14px; letter-spacing: 0.5px;
+  padding: 12px 24px; border-radius: var(--radius-sm);
+  transition: background 0.18s, transform 0.15s;
+}
+.btn-red:hover { background: #c50000; transform: translateY(-1px); }
+.btn-outline-white {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: transparent; color: rgba(246,246,246,0.85);
+  font-weight: 700; font-size: 14px;
+  padding: 11px 22px; border-radius: var(--radius-sm);
+  border: 1.5px solid rgba(246,246,246,0.3);
+  transition: border-color 0.18s, background 0.18s;
+}
+.btn-outline-white:hover { border-color: rgba(246,246,246,0.7); background: rgba(255,255,255,0.07); }
+
+/* ─── HEADER ────────────────────────────────────────────────────────── */
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid rgba(41,44,49,0.08);
+  height: var(--header-h);
+}
+.header-inner {
+  display: flex; align-items: center; height: 100%;
+}
+.logo {
+  display: flex; align-items: center;
+  flex-shrink: 0; margin-right: 32px;
+}
+.logo svg { width: 80px; height: auto; }
+.nav-utility {
+  display: flex; align-items: center; gap: 8px;
+  flex: 1;
+}
+.nav-utility-link {
+  font-size: 13px; font-weight: 600;
+  color: var(--grey); padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  transition: color 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+.nav-utility-link:hover { color: var(--charcoal); background: var(--off-white); }
+.nav-spacer { flex: 1; }
+.header-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.btn-signin {
+  background: var(--black); color: var(--text-on-dark);
+  font-weight: 700; font-size: 13px;
+  padding: 8px 18px; border-radius: var(--radius-sm);
+}
+
+/* ─── INTENT HERO ───────────────────────────────────────────────────── */
+.intent-hero {
+  background: linear-gradient(155deg, #090909 0%, #1c0008 50%, #060016 100%);
+  padding: 72px 0 80px;
+  position: relative;
+  overflow: hidden;
+}
+/* Decorative gradient blobs */
+.intent-hero::before {
+  content: '';
+  position: absolute;
+  top: -120px; right: -120px;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(228,0,0,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.intent-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -80px;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(51,51,255,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.intent-hero-eyebrow {
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(228,0,0,0.85);
+  margin-bottom: 20px;
+}
+.intent-hero-headline {
+  font-size: 52px; font-weight: 900;
+  color: var(--text-on-dark);
+  line-height: 1.1; letter-spacing: -1.5px;
+  margin-bottom: 14px;
+}
+.intent-hero-sub {
+  font-size: 17px; color: rgba(246,246,246,0.55);
+  margin-bottom: 52px; max-width: 520px; line-height: 1.6;
+}
+
+/* Intent path cards */
+.intent-paths {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  position: relative; z-index: 1;
+}
+.intent-path {
+  background: rgba(255,255,255,0.04);
+  border: 1.5px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px 32px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  display: block;
+}
+.intent-path:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.22);
+  transform: translateY(-4px);
+}
+.intent-path.home:hover { border-color: rgba(37,99,235,0.6); }
+.intent-path.mobile:hover { border-color: rgba(22,163,74,0.6); }
+.intent-path.bank:hover { border-color: rgba(147,51,234,0.6); }
+.intent-path.biz:hover { border-color: rgba(234,88,12,0.6); }
+/* Glow spot on each card */
+.intent-path::before {
+  content: '';
+  position: absolute;
+  top: -40px; left: -40px;
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.intent-path.home::before { background: radial-gradient(circle, rgba(37,99,235,0.3) 0%, transparent 70%); }
+.intent-path.mobile::before { background: radial-gradient(circle, rgba(22,163,74,0.3) 0%, transparent 70%); }
+.intent-path.bank::before { background: radial-gradient(circle, rgba(147,51,234,0.3) 0%, transparent 70%); }
+.intent-path.biz::before { background: radial-gradient(circle, rgba(234,88,12,0.3) 0%, transparent 70%); }
+.intent-path:hover::before { opacity: 1; }
+
+.intent-path-icon {
+  width: 52px; height: 52px;
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.home .intent-path-icon { background: rgba(37,99,235,0.2); }
+.mobile .intent-path-icon { background: rgba(22,163,74,0.2); }
+.bank .intent-path-icon { background: rgba(147,51,234,0.2); }
+.biz .intent-path-icon { background: rgba(234,88,12,0.2); }
+
+.intent-path-title {
+  font-size: 18px; font-weight: 800;
+  color: var(--text-on-dark); margin-bottom: 8px; line-height: 1.2;
+}
+.intent-path-desc {
+  font-size: 13px; color: rgba(246,246,246,0.5);
+  line-height: 1.5; margin-bottom: 20px;
+}
+.intent-path-arrow {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.8px; text-transform: uppercase;
+}
+.home .intent-path-arrow { color: rgba(147,197,253,0.85); }
+.mobile .intent-path-arrow { color: rgba(134,239,172,0.85); }
+.bank .intent-path-arrow { color: rgba(196,181,253,0.85); }
+.biz .intent-path-arrow { color: rgba(253,186,116,0.85); }
+
+/* ─── FLOATING RECHARGE ─────────────────────────────────────────────── */
+.floating-recharge {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 90;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(41,44,49,0.1);
+  box-shadow: 0 2px 16px rgba(41,44,49,0.08);
+  padding: 10px 0;
+}
+.floating-recharge-inner {
+  display: flex; align-items: center; gap: 16px;
+}
+.floating-recharge-label {
+  font-size: 13px; font-weight: 700;
+  color: var(--charcoal); white-space: nowrap;
+}
+.floating-tabs {
+  display: flex; gap: 4px;
+}
+.floating-tab {
+  font-size: 12px; font-weight: 600;
+  padding: 6px 14px; border-radius: 20px;
+  background: var(--off-white);
+  color: var(--grey); cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.floating-tab.active { background: var(--red); color: #fff; }
+.floating-tab:hover:not(.active) { background: rgba(41,44,49,0.08); color: var(--charcoal); }
+.floating-input-row {
+  display: flex; align-items: center; gap: 8px; flex: 1;
+}
+.floating-input {
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px; font-weight: 600;
+  color: var(--charcoal);
+  background: var(--off-white);
+  border: 1.5px solid rgba(41,44,49,0.12);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  flex: 1; max-width: 240px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.floating-input:focus { border-color: var(--red); }
+.floating-submit {
+  background: var(--red); color: #fff;
+  font-weight: 800; font-size: 13px;
+  padding: 9px 18px; border-radius: var(--radius-sm);
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.floating-submit:hover { background: #c50000; }
+.floating-spacer { flex: 1; }
+.floating-help {
+  font-size: 12px; color: var(--grey);
+  white-space: nowrap;
+}
+
+/* ─── PATH SECTIONS ─────────────────────────────────────────────────── */
+
+/* Section wrapper */
+.path-section {
+  padding: 80px 0;
+  position: relative;
+}
+.path-section:nth-child(even) { background: var(--off-white); }
+
+/* Anchor nav for path jump */
+.path-anchor-nav {
+  background: var(--charcoal);
+  padding: 0;
+  overflow-x: auto;
+}
+.path-anchor-inner {
+  display: flex; gap: 0;
+}
+.path-anchor-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 28px;
+  font-size: 13px; font-weight: 700;
+  color: rgba(246,246,246,0.55);
+  border-bottom: 2.5px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.path-anchor-link:hover { color: var(--text-on-dark); }
+.path-anchor-link.active { color: var(--text-on-dark); border-bottom-color: var(--red); }
+.path-anchor-icon { font-size: 16px; }
+
+/* Path section header */
+.path-header {
+  display: flex; align-items: flex-start;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 40px;
+}
+.path-header-left {}
+.path-eyebrow {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--grey); margin-bottom: 8px;
+}
+.path-eyebrow-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+}
+.home-dot { background: var(--home-clr); }
+.mobile-dot { background: var(--mobile-clr); }
+.bank-dot { background: var(--bank-clr); }
+.biz-dot { background: var(--biz-clr); }
+
+.path-title {
+  font-size: 36px; font-weight: 900;
+  color: var(--charcoal); line-height: 1.15;
+  letter-spacing: -0.5px;
+}
+.path-title em { font-style: normal; }
+.path-sub {
+  font-size: 15px; color: var(--grey);
+  margin-top: 8px; max-width: 480px; line-height: 1.6;
+}
+.path-header-right {
+  flex-shrink: 0; padding-top: 8px;
+}
+
+/* ─── PATH A: CONNECT AT HOME ───────────────────────────────────────── */
+#path-home {}
+.home-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+.home-main-card {
+  grid-column: 1 / -1;
+  background: var(--charcoal);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  min-height: 320px;
+}
+.home-main-card-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.home-main-card-body {
+  padding: 40px;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.home-main-card-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(37,99,235,0.25);
+  border: 1px solid rgba(37,99,235,0.4);
+  color: rgba(147,197,253,0.9);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 1.2px; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 20px;
+  width: fit-content; margin-bottom: 16px;
+}
+.home-main-card-title {
+  font-size: 28px; font-weight: 900;
+  color: var(--text-on-dark); line-height: 1.15;
+  margin-bottom: 10px;
+}
+.home-main-card-desc {
+  font-size: 14px; color: rgba(246,246,246,0.6);
+  line-height: 1.55; margin-bottom: 24px;
+}
+.home-main-card-price {
+  font-size: 32px; font-weight: 900; color: #fff;
+  margin-bottom: 6px;
+}
+.home-main-card-price sub { font-size: 14px; font-weight: 500; color: rgba(246,246,246,0.6); }
+.home-main-card-note { font-size: 12px; color: rgba(246,246,246,0.45); margin-bottom: 28px; }
+
+/* Plan compare mini cards */
+.home-plan-cards {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.plan-mini-card {
+  background: #fff;
+  border: 1.5px solid rgba(41,44,49,0.1);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  display: flex; flex-direction: column;
+  transition: box-shadow 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
+.plan-mini-card:hover {
+  box-shadow: 0 6px 24px rgba(41,44,49,0.1);
+  border-color: rgba(37,99,235,0.35);
+}
+.plan-mini-card.recommended {
+  border-color: var(--home-clr);
+  position: relative;
+}
+.plan-mini-card-badge {
+  position: absolute;
+  top: -10px; left: 20px;
+  background: var(--home-clr);
+  color: #fff;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.8px; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 20px;
+}
+.plan-mini-speed {
+  font-size: 13px; font-weight: 700; color: var(--grey);
+  margin-bottom: 6px;
+  display: flex; align-items: center; gap: 6px;
+}
+.plan-mini-title {
+  font-size: 18px; font-weight: 800; color: var(--charcoal);
+  margin-bottom: 8px;
+}
+.plan-mini-features {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 6px;
+  margin-bottom: 18px; flex: 1;
+}
+.plan-mini-features li {
+  font-size: 12px; color: var(--grey);
+  display: flex; align-items: center; gap: 6px;
+}
+.plan-mini-features li::before {
+  content: '✓';
+  color: var(--home-clr);
+  font-weight: 700; font-size: 11px;
+}
+.plan-mini-price {
+  font-size: 24px; font-weight: 900; color: var(--charcoal);
+  margin-bottom: 14px;
+}
+.plan-mini-price sub { font-size: 12px; font-weight: 500; color: var(--grey); }
+.plan-mini-cta {
+  width: 100%; text-align: center; justify-content: center;
+  font-size: 13px; padding: 10px;
+  border-radius: 8px;
+  background: var(--home-clr); color: #fff;
+  font-weight: 700; display: flex; align-items: center;
+  transition: background 0.15s;
+}
+.plan-mini-cta:hover { background: #1d4ed8; }
+.recommended .plan-mini-cta { background: var(--home-clr); }
+
+/* ─── PATH B: MOBILE PLANS ──────────────────────────────────────────── */
+#path-mobile {}
+.mobile-layout {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 48px;
+  align-items: start;
+}
+.mobile-sidebar {}
+.mobile-sidebar-prompt {
+  background: #fff;
+  border: 1.5px solid rgba(41,44,49,0.1);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  margin-bottom: 16px;
+}
+.mobile-sidebar-title {
+  font-size: 15px; font-weight: 700; color: var(--charcoal);
+  margin-bottom: 16px;
+}
+.mobile-filter-group { margin-bottom: 16px; }
+.mobile-filter-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--grey); margin-bottom: 8px;
+}
+.mobile-filter-options {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.filter-chip {
+  font-size: 12px; font-weight: 600;
+  padding: 5px 12px; border-radius: 20px;
+  background: var(--off-white);
+  border: 1.5px solid rgba(41,44,49,0.1);
+  color: var(--charcoal); cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.filter-chip.active {
+  border-color: var(--mobile-clr);
+  background: rgba(22,163,74,0.08);
+  color: var(--mobile-clr);
+}
+.filter-chip:hover:not(.active) { border-color: rgba(41,44,49,0.25); }
+
+.mobile-plans-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.mobile-plan-card {
+  background: #fff;
+  border: 1.5px solid rgba(41,44,49,0.1);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  display: flex; flex-direction: column;
+  position: relative;
+  transition: box-shadow 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+.mobile-plan-card:hover {
+  box-shadow: 0 6px 24px rgba(41,44,49,0.1);
+  transform: translateY(-2px);
+}
+.mobile-plan-card.popular {
+  border-color: var(--mobile-clr);
+}
+.mobile-plan-pop-badge {
+  position: absolute; top: -10px; right: 16px;
+  background: var(--mobile-clr); color: #fff;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.8px; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 20px;
+}
+.mobile-plan-validity {
+  font-size: 11px; font-weight: 700; color: var(--grey);
+  letter-spacing: 0.5px; margin-bottom: 4px;
+}
+.mobile-plan-data {
+  font-size: 22px; font-weight: 900; color: var(--charcoal);
+  margin-bottom: 12px; line-height: 1;
+}
+.mobile-plan-data span { font-size: 13px; font-weight: 600; color: var(--grey); }
+.mobile-plan-features {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 5px;
+  margin-bottom: 16px; flex: 1;
+}
+.mobile-plan-features li {
+  font-size: 12px; color: var(--grey);
+  display: flex; align-items: center; gap: 6px;
+}
+.mobile-plan-features li::before {
+  content: '✓';
+  color: var(--mobile-clr); font-weight: 700; font-size: 11px;
+}
+.mobile-plan-price {
+  font-size: 26px; font-weight: 900; color: var(--charcoal);
+  margin-bottom: 14px;
+}
+.mobile-plan-price sub { font-size: 12px; font-weight: 500; color: var(--grey); }
+.mobile-plan-cta {
+  width: 100%; text-align: center; justify-content: center;
+  font-size: 13px; padding: 10px;
+  border-radius: 8px;
+  background: var(--charcoal); color: #fff;
+  font-weight: 700; display: flex; align-items: center;
+  transition: background 0.15s;
+}
+.mobile-plan-cta:hover { background: #000; }
+.popular .mobile-plan-cta { background: var(--mobile-clr); }
+.popular .mobile-plan-cta:hover { background: #15803d; }
+
+/* ─── PATH C: PAY & BANK ────────────────────────────────────────────── */
+#path-bank {
+  background: #fff;
+}
+.bank-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.bank-card {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  position: relative;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+.bank-card img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.bank-card-overlay {
+  position: relative; z-index: 1;
+  padding: 32px;
+  background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.82) 100%);
+}
+.bank-card-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(147,51,234,0.25);
+  border: 1px solid rgba(196,181,253,0.4);
+  color: rgba(196,181,253,0.9);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 20px;
+  margin-bottom: 12px; width: fit-content;
+}
+.bank-card-title {
+  font-size: 22px; font-weight: 800;
+  color: #fff; margin-bottom: 6px; line-height: 1.2;
+}
+.bank-card-desc {
+  font-size: 13px; color: rgba(255,255,255,0.65);
+  margin-bottom: 20px; line-height: 1.5;
+}
+.bank-card-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff; font-size: 12px; font-weight: 700;
+  padding: 8px 16px; border-radius: 20px;
+  width: fit-content;
+}
+.bank-quick-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.quick-action-card {
+  background: var(--off-white);
+  border: 1px solid rgba(41,44,49,0.08);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  display: flex; align-items: center; gap: 16px;
+  cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s;
+}
+.quick-action-card:hover {
+  background: var(--lavender);
+  box-shadow: 0 4px 16px rgba(147,51,234,0.1);
+}
+.quick-action-icon {
+  width: 44px; height: 44px;
+  border-radius: 14px;
+  background: rgba(147,51,234,0.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.quick-action-title {
+  font-size: 14px; font-weight: 700; color: var(--charcoal);
+}
+.quick-action-sub {
+  font-size: 12px; color: var(--grey); margin-top: 2px;
+}
+
+/* ─── PATH D: BUSINESS ──────────────────────────────────────────────── */
+#path-business {
+  background: var(--off-white);
+}
+.biz-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 2fr;
+  gap: 56px;
+  align-items: center;
+}
+.biz-intro-visual {
+  position: relative;
+}
+.biz-stat-stack {
+  display: flex; flex-direction: column; gap: 16px;
+}
+.biz-stat {
+  background: #fff;
+  border: 1px solid rgba(41,44,49,0.08);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  display: flex; align-items: center; gap: 16px;
+}
+.biz-stat-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: rgba(234,88,12,0.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.biz-stat-num {
+  font-size: 24px; font-weight: 900; color: var(--charcoal); line-height: 1;
+}
+.biz-stat-label { font-size: 12px; color: var(--grey); margin-top: 3px; }
+
+.biz-solutions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.biz-solution-card {
+  background: #fff;
+  border: 1.5px solid rgba(41,44,49,0.08);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+  display: flex; flex-direction: column;
+}
+.biz-solution-card:hover {
+  box-shadow: 0 8px 28px rgba(41,44,49,0.1);
+  transform: translateY(-2px);
+  border-color: rgba(234,88,12,0.35);
+}
+.biz-solution-icon {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  background: rgba(234,88,12,0.1);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; margin-bottom: 14px;
+}
+.biz-solution-title {
+  font-size: 16px; font-weight: 700; color: var(--charcoal); margin-bottom: 6px;
+}
+.biz-solution-desc {
+  font-size: 13px; color: var(--grey); line-height: 1.5; flex: 1; margin-bottom: 16px;
+}
+.biz-solution-link {
+  font-size: 12px; font-weight: 700;
+  color: var(--biz-clr);
+  display: flex; align-items: center; gap: 4px;
+}
+
+/* ─── TRUST STRIP ───────────────────────────────────────────────────── */
+.trust-strip {
+  background: var(--charcoal);
+  padding: 40px 0;
+}
+.trust-strip-inner {
+  display: flex; align-items: center; justify-content: space-between; gap: 48px;
+}
+.trust-item {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+.trust-number {
+  font-size: 36px; font-weight: 900; color: var(--text-on-dark); line-height: 1;
+}
+.trust-number em { font-style: normal; color: var(--red); }
+.trust-label { font-size: 13px; color: rgba(246,246,246,0.5); margin-top: 4px; }
+.trust-divider {
+  width: 1px; height: 40px; background: rgba(255,255,255,0.1); flex-shrink: 0;
+}
+
+/* ─── FOOTER ────────────────────────────────────────────────────────── */
+footer {
+  background: #0a0a0a;
+  color: rgba(246,246,246,0.6);
+  padding: 64px 0 32px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.footer-brand-tagline {
+  font-size: 14px; color: rgba(246,246,246,0.5);
+  line-height: 1.6; margin: 16px 0 24px; max-width: 260px;
+}
+.footer-social { display: flex; gap: 10px; }
+.footer-social-link {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: rgba(255,255,255,0.06);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; transition: background 0.15s;
+}
+.footer-social-link:hover { background: rgba(255,255,255,0.13); }
+.footer-col-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: rgba(246,246,246,0.4); margin-bottom: 16px;
+}
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-links a { font-size: 14px; color: rgba(246,246,246,0.6); transition: color 0.15s; }
+.footer-links a:hover { color: #fff; }
+.footer-bottom {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 24px; gap: 24px; flex-wrap: wrap;
+}
+.footer-bottom-text { font-size: 12px; color: rgba(246,246,246,0.3); }
+.footer-app-links { display: flex; gap: 10px; }
+.app-badge {
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px; padding: 8px 14px;
+  font-size: 12px; font-weight: 600;
+  color: rgba(246,246,246,0.7); transition: background 0.15s;
+}
+.app-badge:hover { background: rgba(255,255,255,0.12); }
+
+/* ─── RESPONSIVE ────────────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .container { padding: 0 24px; }
+  .intent-paths { grid-template-columns: repeat(2, 1fr); }
+  .home-main-card { grid-template-columns: 1fr; }
+  .home-main-card-img { height: 200px; }
+  .home-plan-cards { grid-template-columns: 1fr 1fr; }
+  .mobile-layout { grid-template-columns: 1fr; }
+  .mobile-plans-grid { grid-template-columns: repeat(3, 1fr); }
+  .biz-layout { grid-template-columns: 1fr; gap: 32px; }
+  .footer-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  .nav-utility { display: none; }
+  .intent-hero-headline { font-size: 36px; }
+  .intent-paths { grid-template-columns: 1fr 1fr; }
+  .floating-recharge-inner { flex-wrap: wrap; gap: 10px; }
+  .floating-input { max-width: 100%; }
+  .home-main-card { display: block; }
+  .home-plan-cards { grid-template-columns: 1fr; }
+  .mobile-plans-grid { grid-template-columns: 1fr 1fr; }
+  .bank-layout { grid-template-columns: 1fr; }
+  .bank-quick-actions { grid-template-columns: 1fr; }
+  .biz-solutions-grid { grid-template-columns: 1fr; }
+  .trust-strip-inner { flex-wrap: wrap; gap: 28px; justify-content: center; }
+  .trust-divider { display: none; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .path-title { font-size: 28px; }
+}
+@media (max-width: 490px) {
+  .intent-paths { grid-template-columns: 1fr; }
+  .mobile-plans-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .intent-hero-headline { font-size: 30px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── HEADER ─────────────────────────────────────────────────────────── -->
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/" class="logo" aria-label="Airtel Home">
+        <svg viewBox="0 0 100 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 24 C8 14 14 8 22 10 C30 12 32 20 28 24 C26 26 22 27 18 26 C14 25 12 22 13 19 C14 16 17 15 20 16" stroke="#E40000" stroke-width="2.8" stroke-linecap="round" fill="none"></path>
+          <text x="36" y="22" font-family="&#39;Nunito&#39;, sans-serif" font-weight="800" font-size="13" fill="rgb(41,44,49)" letter-spacing="-0.3">airtel</text>
+        </svg>
+      </a>
+
+      <nav class="nav-utility" aria-label="Quick links">
+        <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#path-home" class="nav-utility-link">📶 Home Internet</a>
+        <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#path-mobile" class="nav-utility-link">📱 Mobile Plans</a>
+        <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#path-bank" class="nav-utility-link">🏦 Pay &amp; Bank</a>
+        <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#path-business" class="nav-utility-link">💼 Business</a>
+      </nav>
+
+      <span class="nav-spacer" aria-hidden="true"></span>
+
+      <div class="header-right">
+        <button class="btn-signin">Sign In</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ─── INTENT HERO ────────────────────────────────────────────────────── -->
+<section class="intent-hero" aria-label="Choose your path">
+  <div class="container">
+    <p class="intent-hero-eyebrow">India's #1 network — personalized for you</p>
+    <h1 class="intent-hero-headline">What are you<br>looking for today?</h1>
+    <p class="intent-hero-sub">
+      Tell us your need — we'll take you straight to the right plan, product, or service.
+    </p>
+
+    <div class="intent-paths" role="navigation" aria-label="Intent paths">
+      <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#path-home" class="intent-path home">
+        <div class="intent-path-icon" aria-hidden="true">🏠</div>
+        <div class="intent-path-title">Connect at home</div>
+        <p class="intent-path-desc">High-speed Wi-Fi and home broadband — from 40 Mbps to 1 Gbps</p>
+        <div class="intent-path-arrow">View plans →</div>
+      </a>
+      <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#path-mobile" class="intent-path mobile">
+        <div class="intent-path-icon" aria-hidden="true">📱</div>
+        <div class="intent-path-title">Mobile plans</div>
+        <p class="intent-path-desc">Prepaid, postpaid, and 5G plans with unlimited data and OTT access</p>
+        <div class="intent-path-arrow">View plans →</div>
+      </a>
+      <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#path-bank" class="intent-path bank">
+        <div class="intent-path-icon" aria-hidden="true">🏦</div>
+        <div class="intent-path-title">Pay &amp; bank</div>
+        <p class="intent-path-desc">Recharge, pay bills, save with 7% interest, and spend smarter</p>
+        <div class="intent-path-arrow">Get started →</div>
+      </a>
+      <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#path-business" class="intent-path biz">
+        <div class="intent-path-icon" aria-hidden="true">💼</div>
+        <div class="intent-path-title">For business</div>
+        <p class="intent-path-desc">Enterprise connectivity, cloud, IoT and cybersecurity solutions</p>
+        <div class="intent-path-arrow">Explore →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FLOATING RECHARGE (persistent utility, not a section) ─────────── -->
+<div class="floating-recharge" role="complementary" aria-label="Quick recharge">
+  <div class="container">
+    <div class="floating-recharge-inner">
+      <span class="floating-recharge-label">Quick Recharge</span>
+      <div class="floating-tabs" role="tablist">
+        <div class="floating-tab active" role="tab">Mobile</div>
+        <div class="floating-tab" role="tab">DTH</div>
+        <div class="floating-tab" role="tab">Broadband</div>
+        <div class="floating-tab" role="tab">Postpaid</div>
+      </div>
+      <div class="floating-input-row">
+        <input class="floating-input" type="tel" placeholder="Enter number" aria-label="Phone number">
+        <button class="floating-submit">PROCEED</button>
+      </div>
+      <span class="floating-spacer" aria-hidden="true"></span>
+      <span class="floating-help">📞 Need help? <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" style="color:var(--red);font-weight:700;">121</a></span>
+    </div>
+  </div>
+</div>
+
+<!-- ─── PATH ANCHOR NAV ───────────────────────────────────────────────── -->
+<nav class="path-anchor-nav" aria-label="Section navigation">
+  <div class="container">
+    <div class="path-anchor-inner">
+      <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#path-home" class="path-anchor-link active">
+        <span class="path-anchor-icon" aria-hidden="true">🏠</span>
+        Connect at home
+      </a>
+      <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#path-mobile" class="path-anchor-link">
+        <span class="path-anchor-icon" aria-hidden="true">📱</span>
+        Mobile plans
+      </a>
+      <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#path-bank" class="path-anchor-link">
+        <span class="path-anchor-icon" aria-hidden="true">🏦</span>
+        Pay &amp; bank
+      </a>
+      <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#path-business" class="path-anchor-link">
+        <span class="path-anchor-icon" aria-hidden="true">💼</span>
+        Business
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── PATH A: CONNECT AT HOME ───────────────────────────────────────── -->
+<section class="path-section" id="path-home" aria-label="Home internet plans">
+  <div class="container">
+    <div class="path-header">
+      <div class="path-header-left">
+        <div class="path-eyebrow">
+          <span class="path-eyebrow-dot home-dot" aria-hidden="true"></span>
+          Home Internet
+        </div>
+        <h2 class="path-title">Fast, reliable Wi-Fi<br><em>for every home</em></h2>
+        <p class="path-sub">Choose the speed that fits your household. All plans include free router installation and unlimited data.</p>
+      </div>
+      <div class="path-header-right">
+        <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="btn-primary">CHECK AVAILABILITY</a>
+      </div>
+    </div>
+
+    <!-- Hero plan card -->
+    <div class="home-layout">
+      <div class="home-main-card">
+        <img class="home-main-card-img" src="./Airtel — What are you looking for__files/recommendations-slide-1.png" alt="Airtel Xstream Fiber">
+        <div class="home-main-card-body">
+          <div>
+            <div class="home-main-card-tag">⚡ Recommended for streaming</div>
+            <div class="home-main-card-title">Airtel Xstream<br>Fiber 300 Mbps</div>
+            <p class="home-main-card-desc">Netflix, Disney+, Amazon Prime included. Wi-Fi calling. Unlimited backup. Free installation.</p>
+          </div>
+          <div>
+            <div class="home-main-card-price">₹799<sub>/month</sub></div>
+            <div class="home-main-card-note">No lock-in. Cancel anytime.</div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;">
+              <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="btn-red">GET STARTED</a>
+              <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="btn-outline-white">Compare plans</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-plan-cards">
+        <div class="plan-mini-card" style="position:relative;">
+          <div class="plan-mini-speed">📶 40 Mbps</div>
+          <div class="plan-mini-title">Starter Plan</div>
+          <ul class="plan-mini-features">
+            <li>Unlimited data</li>
+            <li>Free router installation</li>
+            <li>24×7 support</li>
+          </ul>
+          <div class="plan-mini-price">₹399<sub>/mo</sub></div>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="plan-mini-cta">GET STARTED</a>
+        </div>
+        <div class="plan-mini-card recommended" style="position:relative;">
+          <div class="plan-mini-card-badge">Best Value</div>
+          <div class="plan-mini-speed">🚀 300 Mbps</div>
+          <div class="plan-mini-title">Family Plan</div>
+          <ul class="plan-mini-features">
+            <li>Unlimited data</li>
+            <li>3 OTT subscriptions</li>
+            <li>Wi-Fi calling</li>
+            <li>Free installation</li>
+          </ul>
+          <div class="plan-mini-price">₹799<sub>/mo</sub></div>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="plan-mini-cta">GET STARTED</a>
+        </div>
+        <div class="plan-mini-card" style="position:relative;">
+          <div class="plan-mini-speed">⚡ 1 Gbps</div>
+          <div class="plan-mini-title">Power Plan</div>
+          <ul class="plan-mini-features">
+            <li>Unlimited data</li>
+            <li>6 OTT subscriptions</li>
+            <li>Static IP available</li>
+            <li>Priority support</li>
+          </ul>
+          <div class="plan-mini-price">₹1,499<sub>/mo</sub></div>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="plan-mini-cta">GET STARTED</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PATH B: MOBILE PLANS ──────────────────────────────────────────── -->
+<section class="path-section" id="path-mobile" aria-label="Mobile plans">
+  <div class="container">
+    <div class="path-header">
+      <div class="path-header-left">
+        <div class="path-eyebrow">
+          <span class="path-eyebrow-dot mobile-dot" aria-hidden="true"></span>
+          Mobile Plans
+        </div>
+        <h2 class="path-title">Plans that work as<br><em>hard as you do</em></h2>
+        <p class="path-sub">Unlimited 5G data, national roaming, and the best OTT bundle on any network.</p>
+      </div>
+      <div class="path-header-right">
+        <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="btn-primary">VIEW ALL PLANS</a>
+      </div>
+    </div>
+
+    <div class="mobile-layout">
+      <div class="mobile-sidebar">
+        <div class="mobile-sidebar-prompt">
+          <div class="mobile-sidebar-title">Filter by your needs</div>
+          <div class="mobile-filter-group">
+            <div class="mobile-filter-label">Connection type</div>
+            <div class="mobile-filter-options">
+              <div class="filter-chip active">Prepaid</div>
+              <div class="filter-chip">Postpaid</div>
+              <div class="filter-chip">5G only</div>
+            </div>
+          </div>
+          <div class="mobile-filter-group">
+            <div class="mobile-filter-label">Validity</div>
+            <div class="mobile-filter-options">
+              <div class="filter-chip">28 days</div>
+              <div class="filter-chip active">84 days</div>
+              <div class="filter-chip">365 days</div>
+            </div>
+          </div>
+          <div class="mobile-filter-group">
+            <div class="mobile-filter-label">Need</div>
+            <div class="mobile-filter-options">
+              <div class="filter-chip active">Data</div>
+              <div class="filter-chip">Voice only</div>
+              <div class="filter-chip">OTT bundle</div>
+              <div class="filter-chip">Roaming</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:20px;background:#fff;border:1px solid rgba(41,44,49,0.1);border-radius:var(--radius-md);">
+          <div style="font-size:13px;font-weight:700;color:var(--charcoal);margin-bottom:10px;">Already on Airtel?</div>
+          <p style="font-size:12px;color:var(--grey);margin-bottom:14px;">Recharge your existing number instantly.</p>
+          <input style="width:100%;padding:9px 12px;border-radius:8px;border:1.5px solid rgba(41,44,49,0.15);font-family:inherit;font-size:13px;outline:none;margin-bottom:10px;" type="tel" placeholder="Enter mobile number">
+          <button style="width:100%;background:var(--mobile-clr);color:#fff;font-weight:700;font-size:13px;padding:10px;border-radius:8px;border:none;cursor:pointer;">RECHARGE NOW</button>
+        </div>
+      </div>
+
+      <div class="mobile-plans-grid">
+        <div class="mobile-plan-card">
+          <div class="mobile-plan-validity">28 DAYS</div>
+          <div class="mobile-plan-data">2 GB/day <span>+ unlimited</span></div>
+          <ul class="mobile-plan-features">
+            <li>100 SMS/day</li>
+            <li>Unlimited calls</li>
+            <li>Hellotunes free</li>
+          </ul>
+          <div class="mobile-plan-price">₹199<sub>/28d</sub></div>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="mobile-plan-cta">RECHARGE</a>
+        </div>
+        <div class="mobile-plan-card popular">
+          <div class="mobile-plan-pop-badge">Most Popular</div>
+          <div class="mobile-plan-validity">84 DAYS</div>
+          <div class="mobile-plan-data">2.5 GB/day <span>5G</span></div>
+          <ul class="mobile-plan-features">
+            <li>Unlimited calls</li>
+            <li>100 SMS/day</li>
+            <li>Amazon Prime 3mo</li>
+            <li>Wynk Music free</li>
+          </ul>
+          <div class="mobile-plan-price">₹599<sub>/84d</sub></div>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="mobile-plan-cta">RECHARGE</a>
+        </div>
+        <div class="mobile-plan-card">
+          <div class="mobile-plan-validity">84 DAYS</div>
+          <div class="mobile-plan-data">3 GB/day <span>5G</span></div>
+          <ul class="mobile-plan-features">
+            <li>Unlimited calls</li>
+            <li>100 SMS/day</li>
+            <li>Netflix + Prime</li>
+            <li>Airtel XStream free</li>
+          </ul>
+          <div class="mobile-plan-price">₹899<sub>/84d</sub></div>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="mobile-plan-cta">RECHARGE</a>
+        </div>
+        <div class="mobile-plan-card">
+          <div class="mobile-plan-validity">365 DAYS</div>
+          <div class="mobile-plan-data">1.5 GB/day <span>+ unlimited</span></div>
+          <ul class="mobile-plan-features">
+            <li>Unlimited calls</li>
+            <li>100 SMS/day</li>
+            <li>Free roaming</li>
+          </ul>
+          <div class="mobile-plan-price">₹1,799<sub>/yr</sub></div>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="mobile-plan-cta">RECHARGE</a>
+        </div>
+        <div class="mobile-plan-card popular">
+          <div class="mobile-plan-pop-badge">Best OTT</div>
+          <div class="mobile-plan-validity">28 DAYS · PRIORITY</div>
+          <div class="mobile-plan-data">Unlimited <span>5G</span></div>
+          <ul class="mobile-plan-features">
+            <li>Netflix + Hotstar</li>
+            <li>Amazon Prime</li>
+            <li>Priority network</li>
+            <li>International roaming</li>
+          </ul>
+          <div class="mobile-plan-price">₹999<sub>/mo</sub></div>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="mobile-plan-cta">UPGRADE</a>
+        </div>
+        <div class="mobile-plan-card">
+          <div class="mobile-plan-validity">365 DAYS</div>
+          <div class="mobile-plan-data">2 GB/day <span>5G</span></div>
+          <ul class="mobile-plan-features">
+            <li>Unlimited calls</li>
+            <li>100 SMS/day</li>
+            <li>Disney+ Hotstar</li>
+          </ul>
+          <div class="mobile-plan-price">₹2,999<sub>/yr</sub></div>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="mobile-plan-cta">RECHARGE</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PATH C: PAY & BANK ─────────────────────────────────────────────── -->
+<section class="path-section" id="path-bank" aria-label="Payments and banking">
+  <div class="container">
+    <div class="path-header">
+      <div class="path-header-left">
+        <div class="path-eyebrow">
+          <span class="path-eyebrow-dot bank-dot" aria-hidden="true"></span>
+          Pay &amp; Bank
+        </div>
+        <h2 class="path-title">Your money,<br><em>moving faster</em></h2>
+        <p class="path-sub">Recharge, pay bills, and grow your savings — all from the Airtel Thanks app.</p>
+      </div>
+      <div class="path-header-right">
+        <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="btn-primary">OPEN FREE ACCOUNT</a>
+      </div>
+    </div>
+
+    <div class="bank-layout">
+      <div class="bank-card">
+        <img src="./Airtel — What are you looking for__files/recommendations-slide-4.png" alt="Airtel Payments Bank" loading="lazy">
+        <div class="bank-card-overlay">
+          <div class="bank-card-tag">🏦 Payments Bank</div>
+          <div class="bank-card-title">Earn 7% interest on savings</div>
+          <p class="bank-card-desc">India's fastest-growing payments bank. Zero balance account, free UPI, and instant FD options.</p>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="bank-card-cta">OPEN FREE ACCOUNT →</a>
+        </div>
+      </div>
+
+      <div class="bank-quick-actions">
+        <div class="quick-action-card">
+          <div class="quick-action-icon" aria-hidden="true">📱</div>
+          <div>
+            <div class="quick-action-title">Mobile Recharge</div>
+            <div class="quick-action-sub">Prepaid · Postpaid · DTH</div>
+          </div>
+        </div>
+        <div class="quick-action-card">
+          <div class="quick-action-icon" aria-hidden="true">💡</div>
+          <div>
+            <div class="quick-action-title">Pay Utility Bills</div>
+            <div class="quick-action-sub">Electricity · Gas · Water</div>
+          </div>
+        </div>
+        <div class="quick-action-card">
+          <div class="quick-action-icon" aria-hidden="true">🏦</div>
+          <div>
+            <div class="quick-action-title">Fixed Deposit</div>
+            <div class="quick-action-sub">Up to 8.1% returns</div>
+          </div>
+        </div>
+        <div class="quick-action-card">
+          <div class="quick-action-icon" aria-hidden="true">💳</div>
+          <div>
+            <div class="quick-action-title">Send Money (UPI)</div>
+            <div class="quick-action-sub">Instant · Free · Secure</div>
+          </div>
+        </div>
+        <div class="quick-action-card">
+          <div class="quick-action-icon" aria-hidden="true">🛡️</div>
+          <div>
+            <div class="quick-action-title">Insurance</div>
+            <div class="quick-action-sub">Life · Health · Device</div>
+          </div>
+        </div>
+        <div class="quick-action-card">
+          <div class="quick-action-icon" aria-hidden="true">📈</div>
+          <div>
+            <div class="quick-action-title">Mutual Funds</div>
+            <div class="quick-action-sub">Start from ₹100</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PATH D: BUSINESS ──────────────────────────────────────────────── -->
+<section class="path-section" id="path-business" aria-label="Business solutions">
+  <div class="container">
+    <div class="path-header">
+      <div class="path-header-left">
+        <div class="path-eyebrow">
+          <span class="path-eyebrow-dot biz-dot" aria-hidden="true"></span>
+          For Business
+        </div>
+        <h2 class="path-title">Powering India's<br><em>digital enterprises</em></h2>
+        <p class="path-sub">Enterprise-grade connectivity, cloud, and managed security — built for scale.</p>
+      </div>
+      <div class="path-header-right">
+        <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="btn-primary">CONTACT SALES</a>
+      </div>
+    </div>
+
+    <div class="biz-layout">
+      <div class="biz-intro-visual">
+        <div class="biz-stat-stack">
+          <div class="biz-stat">
+            <div class="biz-stat-icon" aria-hidden="true">🌐</div>
+            <div>
+              <div class="biz-stat-num">1M+</div>
+              <div class="biz-stat-label">Enterprise customers</div>
+            </div>
+          </div>
+          <div class="biz-stat">
+            <div class="biz-stat-icon" aria-hidden="true">📡</div>
+            <div>
+              <div class="biz-stat-num">99.99%</div>
+              <div class="biz-stat-label">Network uptime SLA</div>
+            </div>
+          </div>
+          <div class="biz-stat">
+            <div class="biz-stat-icon" aria-hidden="true">🏙️</div>
+            <div>
+              <div class="biz-stat-num">5,000+</div>
+              <div class="biz-stat-label">Cities covered</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="biz-solutions-grid">
+        <div class="biz-solution-card">
+          <div class="biz-solution-icon" aria-hidden="true">🌐</div>
+          <div class="biz-solution-title">Enterprise Connectivity</div>
+          <p class="biz-solution-desc">SD-WAN, MPLS, and leased lines for multi-site enterprises across India.</p>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="biz-solution-link">Learn more →</a>
+        </div>
+        <div class="biz-solution-card">
+          <div class="biz-solution-icon" aria-hidden="true">☁️</div>
+          <div class="biz-solution-title">Cloud &amp; Data Center</div>
+          <p class="biz-solution-desc">Scalable cloud compute, storage, and CDN with Indian data residency.</p>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="biz-solution-link">Learn more →</a>
+        </div>
+        <div class="biz-solution-card">
+          <div class="biz-solution-icon" aria-hidden="true">📡</div>
+          <div class="biz-solution-title">IoT Solutions</div>
+          <p class="biz-solution-desc">SIM management, device connectivity, and fleet tracking at scale.</p>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="biz-solution-link">Learn more →</a>
+        </div>
+        <div class="biz-solution-card">
+          <div class="biz-solution-icon" aria-hidden="true">🔒</div>
+          <div class="biz-solution-title">Cybersecurity</div>
+          <p class="biz-solution-desc">SASE, SOC-as-a-service, DDoS protection, and endpoint security.</p>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="biz-solution-link">Learn more →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TRUST STRIP ───────────────────────────────────────────────────── -->
+<div class="trust-strip" aria-label="Airtel statistics">
+  <div class="container">
+    <div class="trust-strip-inner">
+      <div class="trust-item">
+        <div class="trust-number">550<em>M+</em></div>
+        <div class="trust-label">Customers worldwide</div>
+      </div>
+      <div class="trust-divider" aria-hidden="true"></div>
+      <div class="trust-item">
+        <div class="trust-number">97<em>%</em></div>
+        <div class="trust-label">Population coverage</div>
+      </div>
+      <div class="trust-divider" aria-hidden="true"></div>
+      <div class="trust-item">
+        <div class="trust-number">5<em>G</em></div>
+        <div class="trust-label">In 2,000+ cities</div>
+      </div>
+      <div class="trust-divider" aria-hidden="true"></div>
+      <div class="trust-item">
+        <div class="trust-number">#<em>1</em></div>
+        <div class="trust-label">Rated network in India</div>
+      </div>
+      <div class="trust-divider" aria-hidden="true"></div>
+      <div class="trust-item">
+        <div class="trust-number">4.5<em>★</em></div>
+        <div class="trust-label">App Store rating</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <svg viewBox="0 0 110 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="90" style="margin-bottom:16px;" aria-label="Airtel">
+          <path d="M8 24 C8 14 14 8 22 10 C30 12 32 20 28 24 C26 26 22 27 18 26 C14 25 12 22 13 19 C14 16 17 15 20 16" stroke="#E40000" stroke-width="2.8" stroke-linecap="round" fill="none"></path>
+          <text x="36" y="22" font-family="&#39;Nunito&#39;, sans-serif" font-weight="800" font-size="13" fill="rgba(246,246,246,0.9)" letter-spacing="-0.3">airtel</text>
+        </svg>
+        <p class="footer-brand-tagline">The network that works as hard as India does.</p>
+        <div class="footer-social">
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="footer-social-link" aria-label="Facebook">f</a>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="footer-social-link" aria-label="Twitter">𝕏</a>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="footer-social-link" aria-label="Instagram">◉</a>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="footer-social-link" aria-label="YouTube">▶</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links">
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#">Xstream Fiber</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#">Priority Postpaid</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#">Airtel Prepaid</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#">Airtel DTH</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#">Airtel Black</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Help</div>
+        <ul class="footer-links">
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#">Contact Us</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#">Store Locator</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#">Track Order</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#">FAQs</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#">Raise Complaint</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">About</div>
+        <ul class="footer-links">
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#">About Airtel</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#">Careers</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#">Investor Relations</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#">Sustainability</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#">Media</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-bottom-text">© 2025 Bharti Airtel Limited. All rights reserved. | Privacy Policy | Terms of Use</span>
+      <div class="footer-app-links">
+        <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="app-badge">🍎 App Store</a>
+        <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-B-proposed.html#" class="app-badge">▶ Google Play</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

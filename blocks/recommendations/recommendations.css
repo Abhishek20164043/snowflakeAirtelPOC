@@ -1,0 +1,106 @@
+.recommendations .recommendations-wrap {
+  background: #fff;
+  padding: 72px 0;
+}
+.recommendations .rec-inner {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+.recommendations .rec-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  gap: 24px;
+}
+.recommendations .rec-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: 8px;
+}
+.recommendations .rec-heading {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--charcoal);
+  line-height: 1.2;
+}
+.recommendations .rec-view-all-link {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--red);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.recommendations .rec-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.recommendations .rec-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 3 / 2;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.recommendations .rec-card:hover { transform: scale(1.02); }
+.recommendations .rec-card img,
+.recommendations .rec-card picture {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+}
+.recommendations .rec-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 30%, rgb(0 0 0 / 75%) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+}
+.recommendations .rec-card-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 4px;
+  line-height: 1.25;
+}
+.recommendations .rec-card-sub {
+  font-size: 12px;
+  color: rgb(255 255 255 / 75%);
+  margin-bottom: 12px;
+}
+.recommendations .rec-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgb(255 255 255 / 15%);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgb(255 255 255 / 25%);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+  width: fit-content;
+}
+@media (max-width: 1024px) {
+  .recommendations .rec-inner { padding: 0 24px; }
+  .recommendations .rec-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .recommendations .rec-inner { padding: 0 20px; }
+  .recommendations .recommendations-wrap { padding: 48px 0; }
+  .recommendations .rec-grid { grid-template-columns: 1fr; }
+  .recommendations .rec-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+}

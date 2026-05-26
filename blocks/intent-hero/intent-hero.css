@@ -1,0 +1,152 @@
+.intent-hero .intent-hero-wrap {
+  background: linear-gradient(155deg, #090909 0%, #1c0008 50%, #060016 100%);
+  padding: 72px 0 80px;
+  position: relative;
+  overflow: hidden;
+}
+.intent-hero .intent-hero-wrap::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(228 0 0 / 18%) 0%, transparent 70%);
+  pointer-events: none;
+}
+.intent-hero .intent-hero-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: -80px;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(51 51 255 / 12%) 0%, transparent 70%);
+  pointer-events: none;
+}
+.intent-hero .ih-inner {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+  position: relative;
+  z-index: 1;
+}
+.intent-hero .ih-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgb(228 0 0 / 85%);
+  margin-bottom: 20px;
+}
+.intent-hero .ih-headline {
+  font-size: 52px;
+  font-weight: 900;
+  color: var(--text-on-dark);
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  margin-bottom: 14px;
+}
+.intent-hero .ih-sub {
+  font-size: 17px;
+  color: rgb(246 246 246 / 55%);
+  margin-bottom: 52px;
+  max-width: 520px;
+  line-height: 1.6;
+}
+.intent-hero .ih-sub p { margin: 0; }
+.intent-hero .ih-paths {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.intent-hero .intent-path {
+  background: rgb(255 255 255 / 4%);
+  border: 1.5px solid rgb(255 255 255 / 10%);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px 32px;
+  text-decoration: none;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.intent-hero .intent-path:hover {
+  background: rgb(255 255 255 / 8%);
+  border-color: rgb(255 255 255 / 22%);
+  transform: translateY(-4px);
+}
+.intent-hero .intent-path.home:hover { border-color: rgb(37 99 235 / 60%); }
+.intent-hero .intent-path.mobile:hover { border-color: rgb(22 163 74 / 60%); }
+.intent-hero .intent-path.bank:hover { border-color: rgb(147 51 234 / 60%); }
+.intent-hero .intent-path.biz:hover { border-color: rgb(234 88 12 / 60%); }
+.intent-hero .intent-path::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  left: -40px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.intent-hero .intent-path.home::before { background: radial-gradient(circle, rgb(37 99 235 / 30%) 0%, transparent 70%); }
+.intent-hero .intent-path.mobile::before { background: radial-gradient(circle, rgb(22 163 74 / 30%) 0%, transparent 70%); }
+.intent-hero .intent-path.bank::before { background: radial-gradient(circle, rgb(147 51 234 / 30%) 0%, transparent 70%); }
+.intent-hero .intent-path.biz::before { background: radial-gradient(circle, rgb(234 88 12 / 30%) 0%, transparent 70%); }
+.intent-hero .intent-path:hover::before { opacity: 1; }
+.intent-hero .intent-path-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.intent-hero .intent-path.home .intent-path-icon { background: rgb(37 99 235 / 20%); }
+.intent-hero .intent-path.mobile .intent-path-icon { background: rgb(22 163 74 / 20%); }
+.intent-hero .intent-path.bank .intent-path-icon { background: rgb(147 51 234 / 20%); }
+.intent-hero .intent-path.biz .intent-path-icon { background: rgb(234 88 12 / 20%); }
+.intent-hero .intent-path-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-on-dark);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.intent-hero .intent-path-desc {
+  font-size: 13px;
+  color: rgb(246 246 246 / 50%);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+.intent-hero .intent-path-arrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+.intent-hero .intent-path.home .intent-path-arrow { color: rgb(147 197 253 / 85%); }
+.intent-hero .intent-path.mobile .intent-path-arrow { color: rgb(134 239 172 / 85%); }
+.intent-hero .intent-path.bank .intent-path-arrow { color: rgb(196 181 253 / 85%); }
+.intent-hero .intent-path.biz .intent-path-arrow { color: rgb(253 186 116 / 85%); }
+@media (max-width: 1100px) {
+  .intent-hero .ih-inner { padding: 0 24px; }
+  .intent-hero .ih-paths { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .intent-hero .ih-inner { padding: 0 20px; }
+  .intent-hero .ih-headline { font-size: 36px; }
+  .intent-hero .ih-paths { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 490px) {
+  .intent-hero .ih-paths { grid-template-columns: 1fr; }
+  .intent-hero .ih-headline { font-size: 30px; }
+}

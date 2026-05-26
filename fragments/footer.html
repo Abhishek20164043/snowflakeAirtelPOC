@@ -1,0 +1,174 @@
+<style>
+  body footer {
+    background: rgb(41 44 49);
+    color: rgb(246 246 246 / 70%);
+    padding: 64px 0 32px;
+    display: block;
+  }
+  .site-footer-inner {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+  .site-footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgb(255 255 255 / 10%);
+  }
+  .site-footer-logo { margin-bottom: 16px; }
+  .site-footer-tagline {
+    font-size: 14px;
+    color: rgb(246 246 246 / 60%);
+    line-height: 1.6;
+    margin-bottom: 24px;
+    max-width: 240px;
+  }
+  .site-footer-social {
+    display: flex;
+    gap: 10px;
+  }
+  .site-footer-social a {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgb(255 255 255 / 8%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    color: rgb(246 246 246 / 70%);
+    transition: background 0.15s;
+    text-decoration: none;
+  }
+  .site-footer-social a:hover { background: rgb(255 255 255 / 16%); }
+  .site-footer-col-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: rgb(246 246 246 / 50%);
+    margin-bottom: 16px;
+  }
+  .site-footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0;
+    margin: 0;
+  }
+  .site-footer-links a {
+    font-size: 14px;
+    color: rgb(246 246 246 / 70%);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .site-footer-links a:hover { color: #fff; }
+  .site-footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 24px;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .site-footer-copy { font-size: 12px; color: rgb(246 246 246 / 40%); }
+  .site-footer-apps { display: flex; gap: 10px; }
+  .site-footer-apps a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgb(255 255 255 / 8%);
+    border: 1px solid rgb(255 255 255 / 12%);
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgb(246 246 246 / 80%);
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .site-footer-apps a:hover { background: rgb(255 255 255 / 14%); }
+  @media (max-width: 1024px) {
+    .site-footer-inner { padding: 0 24px; }
+    .site-footer-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .site-footer-inner { padding: 0 20px; }
+    .site-footer-grid { grid-template-columns: 1fr 1fr; }
+    .site-footer-bottom { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 390px) {
+    .site-footer-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="site-footer-inner">
+  <div class="site-footer-grid">
+    <div>
+      <div class="site-footer-logo">
+        <svg viewBox="0 0 110 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="90" aria-label="Airtel">
+          <path d="M8 24 C8 14 14 8 22 10 C30 12 32 20 28 24 C26 26 22 27 18 26 C14 25 12 22 13 19 C14 16 17 15 20 16" stroke="#E40000" stroke-width="2.8" stroke-linecap="round" fill="none"></path>
+          <text x="36" y="22" font-family="'Nunito', sans-serif" font-weight="800" font-size="13" fill="rgba(246,246,246,0.9)" letter-spacing="-0.3">airtel</text>
+        </svg>
+      </div>
+      <p class="site-footer-tagline">Connecting every Indian to a world of possibilities.</p>
+      <div class="site-footer-social">
+        <a href="/" aria-label="Facebook">f</a>
+        <a href="/" aria-label="Twitter">&#x1D54F;</a>
+        <a href="/" aria-label="Instagram">&#x25C9;</a>
+        <a href="/" aria-label="YouTube">&#x25B6;</a>
+      </div>
+    </div>
+    <div>
+      <div class="site-footer-col-title">Quick Access</div>
+      <ul class="site-footer-links">
+        <li><a href="/">Prepaid Recharge</a></li>
+        <li><a href="/">Postpaid Bill Pay</a></li>
+        <li><a href="/">DTH Recharge</a></li>
+        <li><a href="/">Broadband Bill</a></li>
+        <li><a href="/">Check Balance</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="site-footer-col-title">Services</div>
+      <ul class="site-footer-links">
+        <li><a href="/">Airtel 5G Plus</a></li>
+        <li><a href="/">Xstream Fiber</a></li>
+        <li><a href="/">Priority Postpaid</a></li>
+        <li><a href="/">Airtel Black</a></li>
+        <li><a href="/">DTH &amp; Broadband</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="site-footer-col-title">Help</div>
+      <ul class="site-footer-links">
+        <li><a href="/">Contact Us</a></li>
+        <li><a href="/">Store Locator</a></li>
+        <li><a href="/">Track Order</a></li>
+        <li><a href="/">FAQs</a></li>
+        <li><a href="/">Complaints</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="site-footer-col-title">About</div>
+      <ul class="site-footer-links">
+        <li><a href="/">About Airtel</a></li>
+        <li><a href="/">Careers</a></li>
+        <li><a href="/">Investor Relations</a></li>
+        <li><a href="/">Media</a></li>
+        <li><a href="/">Sustainability</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer-bottom">
+    <span class="site-footer-copy">&copy; 2025 Bharti Airtel Limited. All rights reserved. | Privacy Policy | Terms of Use</span>
+    <div class="site-footer-apps">
+      <a href="/"><span aria-hidden="true">&#x1F34E;</span> App Store</a>
+      <a href="/"><span aria-hidden="true">&#x25B6;</span> Google Play</a>
+    </div>
+  </div>
+</div>

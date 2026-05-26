@@ -1,0 +1,85 @@
+.floating-recharge .floating-recharge-wrap {
+  position: sticky;
+  top: 64px;
+  z-index: 90;
+  background: rgb(255 255 255 / 95%);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgb(41 44 49 / 10%);
+  box-shadow: 0 2px 16px rgb(41 44 49 / 8%);
+  padding: 10px 0;
+}
+.floating-recharge .fr-inner {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.floating-recharge .fr-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--charcoal);
+  white-space: nowrap;
+}
+.floating-recharge .fr-tabs { display: flex; gap: 4px; }
+.floating-recharge .fr-tab {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: var(--off-white);
+  color: var(--grey);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.floating-recharge .fr-tab.active { background: var(--red); color: #fff; }
+.floating-recharge .fr-tab:hover:not(.active) {
+  background: rgb(41 44 49 / 8%);
+  color: var(--charcoal);
+}
+.floating-recharge .fr-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+.floating-recharge .fr-input {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--charcoal);
+  background: var(--off-white);
+  border: 1.5px solid rgb(41 44 49 / 12%);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  flex: 1;
+  max-width: 240px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.floating-recharge .fr-input:focus { border-color: var(--red); }
+.floating-recharge .fr-submit {
+  background: var(--red);
+  color: #fff;
+  font-weight: 800;
+  font-size: 13px;
+  padding: 9px 18px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.floating-recharge .fr-submit:hover { background: #c50000; }
+.floating-recharge .fr-spacer { flex: 1; }
+.floating-recharge .fr-help { font-size: 12px; color: var(--grey); white-space: nowrap; }
+.floating-recharge .fr-help a { color: var(--red); font-weight: 700; }
+@media (max-width: 1024px) {
+  .floating-recharge .fr-inner { padding: 0 24px; }
+}
+@media (max-width: 768px) {
+  .floating-recharge .fr-inner { padding: 0 20px; flex-wrap: wrap; gap: 10px; }
+  .floating-recharge .fr-input { max-width: 100%; }
+}

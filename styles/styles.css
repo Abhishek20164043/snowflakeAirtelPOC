@@ -1,18 +1,159 @@
-/* Edge Delivery default decoration */
+/* ─── FONTS ─────────────────────────────────────────────────────────── */
+@font-face {
+  font-family: 'Nunito';
+  src: url('/styles/fonts/nunito-variable.woff2') format('woff2');
+  font-weight: 200 1000;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Nunito';
+  src: url('/styles/fonts/nunito-italic-variable.woff2') format('woff2');
+  font-weight: 200 1000;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Metric-matched Arial fallback for Nunito — eliminates CLS on font swap */
+@font-face {
+  font-family: 'Arial';
+  src: local('Arial');
+  size-adjust: 100.6%;
+  ascent-override: 101%;
+  descent-override: 35%;
+  line-gap-override: 0%;
+}
+
+/* ─── TOKENS ────────────────────────────────────────────────────────── */
+:root {
+  --red: #E40000;
+  --black: #000000;
+  --charcoal: rgb(41, 44, 49);
+  --grey: rgb(105, 107, 111);
+  --white: #ffffff;
+  --off-white: rgb(247, 247, 250);
+  --lavender: rgb(227, 229, 255);
+  --text-on-dark: rgb(246, 246, 246);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --max-w: 1280px;
+  --header-h: 64px;
+  /* Intent path colours (looking-for) */
+  --home-clr: #2563eb;
+  --mobile-clr: #16a34a;
+  --bank-clr: #9333ea;
+  --biz-clr: #ea580c;
+  --font-body: 'Nunito', arial, sans-serif;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ─── RESET ─────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: arial, sans-serif;
+  font-size: 16px;
+  color: var(--charcoal);
+  background: #fff;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+body.session { font-family: var(--font-body); }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+::selection { background: var(--red); color: #fff; }
+
+/* ─── EDS SECTION SCAFFOLD ──────────────────────────────────────────── */
 main > div,
 .has-template,
-div[data-status] {
-  display: none;
+div[data-status] { display: none; }
+
+main .section { display: block; }
+main .section > .default-content,
+main .section > .block-content { display: block; }
+
+aem-sidekick { opacity: 0; }
+aem-sidekick[open="true"].is-ready { opacity: 1; }
+
+/* ─── SHARED CONTAINER ──────────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 40px;
+}
+@media (max-width: 1024px) {
+  .container { padding: 0 24px; }
+}
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
 }
 
-main div.section {
-  display: unset;
+/* ─── GLOBAL BUTTON SYSTEM ──────────────────────────────────────────── */
+a.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-sm);
+  transition: background 0.18s var(--ease-out),
+              color 0.18s var(--ease-out),
+              border-color 0.18s var(--ease-out),
+              transform 0.15s var(--ease-out);
 }
 
-aem-sidekick {
-  opacity: 0;
-
-  &[open="true"].is-ready {
-    opacity: 1;
-  }
+/* Primary — black/charcoal */
+a.btn-primary {
+  background: var(--black);
+  color: var(--text-on-dark);
+  border-color: var(--black);
 }
+a.btn-primary:hover { background: #1a1a1a; transform: translateY(-1px); }
+
+/* Accent — Airtel red (use <em><strong><a>) */
+a.btn-accent {
+  background: var(--red);
+  color: #fff;
+  border-color: var(--red);
+}
+a.btn-accent:hover { background: #c50000; transform: translateY(-1px); }
+
+/* Secondary — outline */
+a.btn-secondary {
+  background: transparent;
+  color: var(--charcoal);
+  border-color: rgb(41 44 49 / 25%);
+  font-weight: 700;
+}
+a.btn-secondary:hover { border-color: var(--charcoal); background: rgb(41 44 49 / 4%); }
+
+/* On dark surfaces — secondary becomes outline-white */
+main .section.dark a.btn-secondary,
+main .section.intent-hero a.btn-secondary,
+main .section.recharge-strip a.btn-secondary,
+main .section.hero a.btn-secondary {
+  color: rgb(246 246 246 / 85%);
+  border-color: rgb(246 246 246 / 30%);
+}
+main .section.dark a.btn-secondary:hover,
+main .section.intent-hero a.btn-secondary:hover,
+main .section.recharge-strip a.btn-secondary:hover,
+main .section.hero a.btn-secondary:hover {
+  border-color: rgb(246 246 246 / 70%);
+  background: rgb(255 255 255 / 7%);
+}
+
+/* Outline variant (add <u>) */
+a.btn-outline {
+  background: transparent;
+}
+
+/* Button groups */
+.btn-group { display: inline-flex; flex-wrap: wrap; gap: 12px; align-items: center; }

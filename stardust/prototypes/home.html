@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<!-- saved from url=(0110)chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Airtel — India's #1 Network | Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="./Airtel — India&#39;s #1 Network _ Home_files/css2" rel="stylesheet">
+<style>
+/* ─── RESET & BASE ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px;
+  color: rgb(41, 44, 49);
+  background: #fff;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; }
+
+/* ─── TOKENS ────────────────────────────────────────────────────────── */
+:root {
+  --red: #E40000;
+  --black: #000000;
+  --charcoal: rgb(41, 44, 49);
+  --grey: rgb(105, 107, 111);
+  --white: #ffffff;
+  --off-white: rgb(247, 247, 250);
+  --lavender: rgb(227, 229, 255);
+  --text-on-dark: rgb(246, 246, 246);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --max-w: 1280px;
+  --header-h: 64px;
+}
+
+/* ─── UTILITY ───────────────────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 40px;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--black);
+  color: var(--text-on-dark);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  padding: 12px 24px;
+  border-radius: var(--radius-sm);
+  transition: background 0.18s ease, transform 0.15s ease;
+}
+.btn-primary:hover { background: #1a1a1a; transform: translateY(-1px); }
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  color: var(--charcoal);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 11px 22px;
+  border-radius: 14px;
+  border: 1.5px solid rgba(41,44,49,0.25);
+  transition: border-color 0.18s, background 0.18s;
+}
+.btn-secondary:hover { border-color: var(--charcoal); background: rgba(41,44,49,0.04); }
+.btn-red {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--red);
+  color: #fff;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  padding: 12px 24px;
+  border-radius: var(--radius-sm);
+  transition: background 0.18s, transform 0.15s;
+}
+.btn-red:hover { background: #c50000; transform: translateY(-1px); }
+.section-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: 8px;
+}
+.section-heading {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--charcoal);
+  line-height: 1.2;
+}
+.section-subhead {
+  font-size: 16px;
+  color: var(--grey);
+  margin-top: 8px;
+}
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+.tag-red { background: rgba(228,0,0,0.1); color: var(--red); }
+.tag-lavender { background: var(--lavender); color: #3333cc; }
+.tag-black { background: var(--charcoal); color: #fff; }
+
+/* ─── HEADER ────────────────────────────────────────────────────────── */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid rgba(41,44,49,0.08);
+  height: var(--header-h);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: 100%;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+  margin-right: 32px;
+}
+.logo svg { width: 80px; height: auto; }
+
+/* Nav tabs */
+.nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  height: 100%;
+}
+.nav-tab {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--grey);
+  border-bottom: 2.5px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+  cursor: pointer;
+  background: none;
+  position: relative;
+}
+.nav-tab:hover { color: var(--charcoal); }
+.nav-tab.active { color: var(--charcoal); border-bottom-color: var(--red); }
+.nav-tab.more {
+  color: var(--grey);
+  gap: 4px;
+}
+.nav-tab.more::after {
+  content: '▾';
+  font-size: 11px;
+  margin-left: 2px;
+}
+
+/* Header right */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.header-right .search-btn {
+  background: none;
+  padding: 8px;
+  color: var(--grey);
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+.header-right .search-btn:hover { background: var(--off-white); }
+.btn-signin {
+  background: var(--black);
+  color: var(--text-on-dark);
+  font-weight: 700;
+  font-size: 13px;
+  padding: 8px 18px;
+  border-radius: var(--radius-sm);
+}
+
+/* ─── HERO ──────────────────────────────────────────────────────────── */
+.hero {
+  background: #000;
+  position: relative;
+  overflow: hidden;
+  min-height: 540px;
+  display: flex;
+  align-items: center;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a0000 40%, #2a0505 100%);
+}
+/* Decorative red wave echo from Airtel logo */
+.hero-wave {
+  position: absolute;
+  right: -60px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 620px;
+  height: 620px;
+  opacity: 0.12;
+  pointer-events: none;
+}
+.hero-image-panel {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 52%;
+  overflow: hidden;
+}
+.hero-image-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.9;
+}
+.hero-image-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #000 0%, rgba(0,0,0,0.6) 40%, transparent 80%);
+  z-index: 1;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 80px 0;
+  max-width: 560px;
+}
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(228,0,0,0.15);
+  border: 1px solid rgba(228,0,0,0.3);
+  color: #ff6666;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+.hero-tag-dot {
+  width: 6px; height: 6px;
+  background: var(--red);
+  border-radius: 50%;
+}
+.hero-headline {
+  font-size: 54px;
+  font-weight: 900;
+  color: var(--text-on-dark);
+  line-height: 1.08;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+}
+.hero-headline span { color: var(--red); }
+.hero-sub {
+  font-size: 18px;
+  color: rgba(246,246,246,0.72);
+  line-height: 1.55;
+  margin-bottom: 36px;
+  max-width: 440px;
+}
+.hero-ctas {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.hero-ctas .btn-red { font-size: 15px; padding: 13px 28px; }
+.hero-ctas .btn-ghost {
+  color: rgba(246,246,246,0.8);
+  font-weight: 700;
+  font-size: 14px;
+  border-bottom: 1.5px solid rgba(246,246,246,0.4);
+  padding-bottom: 2px;
+}
+.hero-ctas .btn-ghost:hover { color: #fff; border-color: #fff; }
+
+/* Promo rail below hero */
+.promo-rail {
+  background: var(--off-white);
+  border-bottom: 1px solid rgba(41,44,49,0.08);
+}
+.promo-rail-inner {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+.promo-pill {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 28px;
+  flex: 1;
+  border-right: 1px solid rgba(41,44,49,0.08);
+  cursor: pointer;
+  transition: background 0.15s;
+  text-decoration: none;
+  color: inherit;
+}
+.promo-pill:last-child { border-right: none; }
+.promo-pill:hover { background: rgba(41,44,49,0.03); }
+.promo-pill-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--lavender);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 18px;
+}
+.promo-pill-text { flex: 1; }
+.promo-pill-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--charcoal);
+}
+.promo-pill-sub {
+  font-size: 12px;
+  color: var(--grey);
+  margin-top: 1px;
+}
+.promo-pill-arrow { color: var(--grey); font-size: 14px; }
+
+/* ─── PRODUCT CARDS ─────────────────────────────────────────────────── */
+.section-products {
+  padding: 64px 0;
+  background: #fff;
+}
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+.section-header-left {}
+.section-view-all {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--red);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.section-view-all:hover { text-decoration: underline; }
+
+.product-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.product-card {
+  background: #fff;
+  border: 1px solid rgba(41,44,49,0.1);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+.product-card:hover {
+  box-shadow: 0 8px 32px rgba(41,44,49,0.12);
+  transform: translateY(-3px);
+}
+.product-card-img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  background: var(--off-white);
+}
+.product-card-body {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.product-card-tag { margin-bottom: 10px; }
+.product-card-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--charcoal);
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+.product-card-desc {
+  font-size: 13px;
+  color: var(--grey);
+  line-height: 1.5;
+  flex: 1;
+  margin-bottom: 18px;
+}
+.product-card-price {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--charcoal);
+  margin-bottom: 14px;
+}
+.product-card-price span {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--grey);
+}
+.product-card-cta {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+}
+
+/* Featured card (dark) */
+.product-card.featured {
+  background: var(--charcoal);
+  border-color: var(--charcoal);
+}
+.product-card.featured .product-card-title,
+.product-card.featured .product-card-price { color: var(--text-on-dark); }
+.product-card.featured .product-card-desc { color: rgba(246,246,246,0.65); }
+.product-card.featured .product-card-cta {
+  background: var(--red);
+  color: #fff;
+}
+.product-card.featured .product-card-cta:hover { background: #c50000; }
+
+/* ─── RECHARGE STRIP ────────────────────────────────────────────────── */
+.recharge-strip {
+  background: var(--charcoal);
+  padding: 48px 0;
+}
+.recharge-inner {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+.recharge-text { flex: 1; }
+.recharge-text h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-on-dark);
+  margin-bottom: 6px;
+}
+.recharge-text p { font-size: 15px; color: rgba(246,246,246,0.6); }
+.recharge-form {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.recharge-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+.recharge-tab {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.1);
+  color: rgba(246,246,246,0.6);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.recharge-tab.active {
+  background: var(--red);
+  color: #fff;
+}
+.recharge-form-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.recharge-input {
+  font-family: 'Nunito', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--charcoal);
+  background: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 13px 18px;
+  width: 260px;
+  outline: none;
+}
+.recharge-input::placeholder { color: rgba(105,107,111,0.7); font-weight: 500; }
+.recharge-input:focus { box-shadow: 0 0 0 2px var(--red); }
+.recharge-submit {
+  background: var(--red);
+  color: #fff;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  padding: 13px 24px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  transition: background 0.15s, transform 0.15s;
+}
+.recharge-submit:hover { background: #c50000; transform: translateY(-1px); }
+
+/* ─── CONFIGURATOR ──────────────────────────────────────────────────── */
+.configurator-section {
+  padding: 72px 0;
+  background: var(--off-white);
+}
+.configurator-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.config-left {}
+.config-right {}
+.config-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-top: 36px;
+}
+.config-step {}
+.config-step-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 10px;
+}
+.config-step-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--charcoal);
+  margin-bottom: 12px;
+}
+.config-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.config-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  background: #fff;
+  border: 1.5px solid rgba(41,44,49,0.15);
+  border-radius: 24px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--charcoal);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.config-option:hover { border-color: var(--red); }
+.config-option.selected {
+  border-color: var(--red);
+  background: rgba(228,0,0,0.06);
+  color: var(--red);
+}
+.config-option-icon { font-size: 16px; }
+
+.config-result {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  border: 1px solid rgba(41,44,49,0.08);
+  box-shadow: 0 4px 24px rgba(41,44,49,0.06);
+}
+.config-result-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.config-result-head h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--grey);
+}
+.config-result-badge {
+  background: rgba(228,0,0,0.1);
+  color: var(--red);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+.config-plan {
+  padding: 20px;
+  background: var(--off-white);
+  border-radius: var(--radius-md);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: background 0.15s;
+  cursor: pointer;
+}
+.config-plan:hover { background: rgba(227,229,255,0.6); }
+.config-plan.top-pick {
+  background: var(--charcoal);
+}
+.config-plan.top-pick .config-plan-name,
+.config-plan.top-pick .config-plan-speed { color: var(--text-on-dark); }
+.config-plan.top-pick .config-plan-detail { color: rgba(246,246,246,0.6); }
+.config-plan.top-pick .config-plan-price { color: #fff; }
+.config-plan-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--lavender);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.config-plan.top-pick .config-plan-icon { background: rgba(255,255,255,0.12); }
+.config-plan-info { flex: 1; }
+.config-plan-name { font-size: 15px; font-weight: 700; color: var(--charcoal); }
+.config-plan-speed { font-size: 12px; font-weight: 600; color: var(--grey); margin-top: 2px; }
+.config-plan-price {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--charcoal);
+}
+.config-plan-price sub { font-size: 12px; font-weight: 500; }
+.config-result-cta {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 14px;
+  font-size: 15px;
+}
+
+/* ─── RECOMMENDATIONS ───────────────────────────────────────────────── */
+.recommendations {
+  padding: 72px 0;
+  background: #fff;
+}
+.rec-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 40px;
+}
+.rec-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 3/2;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.rec-card:hover { transform: scale(1.02); }
+.rec-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.rec-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.75) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+}
+.rec-card-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 4px;
+  line-height: 1.25;
+}
+.rec-card-sub { font-size: 12px; color: rgba(255,255,255,0.75); margin-bottom: 12px; }
+.rec-card-cta-sm {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+  width: fit-content;
+}
+
+/* ─── BUSINESS ──────────────────────────────────────────────────────── */
+.business-section {
+  padding: 72px 0;
+  background: var(--off-white);
+}
+.business-grid {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 48px;
+  align-items: start;
+  margin-top: 16px;
+}
+.business-intro {}
+.business-intro p {
+  font-size: 15px;
+  color: var(--grey);
+  line-height: 1.6;
+  margin: 16px 0 28px;
+}
+.business-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.biz-card {
+  background: #fff;
+  border-radius: var(--radius-md);
+  padding: 24px;
+  border: 1px solid rgba(41,44,49,0.08);
+  transition: box-shadow 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+.biz-card:hover {
+  box-shadow: 0 6px 24px rgba(41,44,49,0.1);
+  transform: translateY(-2px);
+}
+.biz-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--lavender);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+.biz-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--charcoal);
+  margin-bottom: 6px;
+}
+.biz-card-desc {
+  font-size: 13px;
+  color: var(--grey);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+.biz-card-link {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--red);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.biz-card-link:hover { text-decoration: underline; }
+
+/* ─── FOOTER ────────────────────────────────────────────────────────── */
+footer {
+  background: var(--charcoal);
+  color: rgba(246,246,246,0.7);
+  padding: 64px 0 32px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.footer-brand {}
+.footer-brand-logo { margin-bottom: 16px; }
+.footer-brand-tagline {
+  font-size: 14px;
+  color: rgba(246,246,246,0.6);
+  line-height: 1.6;
+  margin-bottom: 24px;
+  max-width: 240px;
+}
+.footer-social {
+  display: flex;
+  gap: 10px;
+}
+.footer-social-link {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  transition: background 0.15s;
+}
+.footer-social-link:hover { background: rgba(255,255,255,0.16); }
+.footer-col-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(246,246,246,0.5);
+  margin-bottom: 16px;
+}
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+}
+.footer-links a {
+  font-size: 14px;
+  color: rgba(246,246,246,0.7);
+  transition: color 0.15s;
+}
+.footer-links a:hover { color: #fff; }
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 24px;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.footer-bottom-text { font-size: 12px; color: rgba(246,246,246,0.4); }
+.footer-app-links { display: flex; gap: 10px; }
+.app-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(246,246,246,0.8);
+  transition: background 0.15s;
+}
+.app-badge:hover { background: rgba(255,255,255,0.14); }
+.app-badge-icon { font-size: 16px; }
+
+/* ─── RESPONSIVE ────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .container { padding: 0 24px; }
+  .hero-headline { font-size: 42px; }
+  .product-cards { grid-template-columns: repeat(2, 1fr); }
+  .rec-grid { grid-template-columns: repeat(2, 1fr); }
+  .business-grid { grid-template-columns: 1fr; gap: 32px; }
+  .business-cards { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: repeat(3, 1fr); }
+  .configurator-layout { grid-template-columns: 1fr; gap: 32px; }
+}
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  .nav-tabs { display: none; }
+  .hero { min-height: 480px; }
+  .hero-image-panel { display: none; }
+  .hero-headline { font-size: 36px; }
+  .hero-content { padding: 60px 0; }
+  .promo-rail-inner { flex-direction: column; }
+  .promo-pill { border-right: none; border-bottom: 1px solid rgba(41,44,49,0.08); }
+  .promo-pill:last-child { border-bottom: none; }
+  .section-products, .recommendations, .configurator-section, .business-section { padding: 48px 0; }
+  .product-cards { grid-template-columns: 1fr; }
+  .rec-grid { grid-template-columns: 1fr; }
+  .recharge-inner { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .recharge-form { width: 100%; }
+  .recharge-form-row { flex-direction: column; align-items: stretch; }
+  .recharge-input { width: 100%; }
+  .business-cards { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+  .section-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+}
+@media (max-width: 390px) {
+  .hero-headline { font-size: 30px; }
+  .footer-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── HEADER ─────────────────────────────────────────────────────────── -->
+<header>
+  <div class="container">
+    <div class="header-inner">
+      <!-- Airtel Logo -->
+      <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/" class="logo" aria-label="Airtel Home">
+        <svg viewBox="0 0 100 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Wave mark -->
+          <path d="M8 24 C8 14 14 8 22 10 C30 12 32 20 28 24 C26 26 22 27 18 26 C14 25 12 22 13 19 C14 16 17 15 20 16" stroke="#E40000" stroke-width="2.8" stroke-linecap="round" fill="none"></path>
+          <!-- airtel wordmark -->
+          <text x="36" y="22" font-family="&#39;Nunito&#39;, sans-serif" font-weight="800" font-size="13" fill="rgb(41,44,49)" letter-spacing="-0.3">airtel</text>
+        </svg>
+      </a>
+
+      <!-- Navigation tabs (fix #2: foregrounded high-intent, rest in More) -->
+      <nav class="nav-tabs" aria-label="Product navigation">
+        <button class="nav-tab active">Wi-Fi</button>
+        <button class="nav-tab">Priority Postpaid</button>
+        <button class="nav-tab">Prepaid</button>
+        <button class="nav-tab">DTH</button>
+        <button class="nav-tab">Airtel Black</button>
+        <button class="nav-tab more">More</button>
+      </nav>
+
+      <!-- Header right -->
+      <div class="header-right">
+        <button class="search-btn" aria-label="Search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+        <button class="btn-signin">Sign In</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ─── HERO (fix #1: single hero, not 11-slide carousel) ─────────────── -->
+<section class="hero" aria-label="Hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+
+  <!-- Decorative wave motif -->
+  <svg class="hero-wave" viewBox="0 0 400 400" fill="none" aria-hidden="true">
+    <path d="M50 350 C50 200 150 80 250 120 C350 160 380 280 320 330 C280 360 200 365 140 340 C80 315 60 270 80 240 C100 210 150 200 190 215" stroke="#E40000" stroke-width="12" stroke-linecap="round" fill="none"></path>
+    <path d="M80 330 C80 210 160 110 240 140 C320 170 340 270 290 315 C260 335 195 342 148 323" stroke="#E40000" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.5"></path>
+  </svg>
+
+  <div class="hero-image-panel" aria-hidden="true">
+    <img src="./Airtel — India&#39;s #1 Network _ Home_files/recomended-priority-postpaid.jpg" alt="">
+  </div>
+
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-tag">
+        <span class="hero-tag-dot" aria-hidden="true"></span>
+        India's First Ever
+      </div>
+      <h1 class="hero-headline">
+        Priority<br>
+        <span>Postpaid.</span><br>
+        Built for you.
+      </h1>
+      <p class="hero-sub">
+        Unlimited 5G data, premium OTT subscriptions, and priority network access — all in one plan.
+      </p>
+      <div class="hero-ctas">
+        <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="btn-red">GET STARTED</a>
+        <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="btn-ghost">View all plans →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROMO RAIL (secondary promotions, replaces slides 2–11) ────────── -->
+<div class="promo-rail" role="complementary" aria-label="Featured promotions">
+  <div class="container">
+    <div class="promo-rail-inner">
+      <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="promo-pill">
+        <div class="promo-pill-icon" aria-hidden="true">📶</div>
+        <div class="promo-pill-text">
+          <div class="promo-pill-title">Airtel Xstream Fiber</div>
+          <div class="promo-pill-sub">Up to 1 Gbps home broadband</div>
+        </div>
+        <span class="promo-pill-arrow" aria-hidden="true">›</span>
+      </a>
+      <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="promo-pill">
+        <div class="promo-pill-icon" aria-hidden="true">📱</div>
+        <div class="promo-pill-text">
+          <div class="promo-pill-title">Prepaid Recharge</div>
+          <div class="promo-pill-sub">Plans from ₹199 with unlimited data</div>
+        </div>
+        <span class="promo-pill-arrow" aria-hidden="true">›</span>
+      </a>
+      <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="promo-pill">
+        <div class="promo-pill-icon" aria-hidden="true">🏦</div>
+        <div class="promo-pill-text">
+          <div class="promo-pill-title">Airtel Payments Bank</div>
+          <div class="promo-pill-sub">7% interest on savings + UPI</div>
+        </div>
+        <span class="promo-pill-arrow" aria-hidden="true">›</span>
+      </a>
+      <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="promo-pill">
+        <div class="promo-pill-icon" aria-hidden="true">📺</div>
+        <div class="promo-pill-text">
+          <div class="promo-pill-title">Airtel DTH</div>
+          <div class="promo-pill-sub">Entertainment ka Blockbuster</div>
+        </div>
+        <span class="promo-pill-arrow" aria-hidden="true">›</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── PRODUCT CARDS (fix #3: differentiated cards, not icon grid) ───── -->
+<section class="section-products" aria-label="Products">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header-left">
+        <p class="section-label">Our Services</p>
+        <!-- fix #5: 32px section heading, not same as hero -->
+        <h2 class="section-heading">Connect your world</h2>
+        <p class="section-subhead">Choose from India's widest range of digital services</p>
+      </div>
+      <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="section-view-all">View all products →</a>
+    </div>
+
+    <div class="product-cards">
+      <!-- Fiber card (featured / dark) -->
+      <div class="product-card featured" role="article">
+        <img class="product-card-img" src="./Airtel — India&#39;s #1 Network _ Home_files/recommendations-slide-1.png" alt="Airtel Xstream Fiber">
+        <div class="product-card-body">
+          <div class="product-card-tag"><span class="tag tag-red">BESTSELLER</span></div>
+          <h3 class="product-card-title">Airtel Xstream Fiber</h3>
+          <p class="product-card-desc">Wired home broadband with speeds up to 1 Gbps. Includes free router, OTT apps, and unlimited data.</p>
+          <div class="product-card-price">₹499<span>/month</span></div>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="btn-red product-card-cta">GET STARTED</a>
+        </div>
+      </div>
+
+      <!-- Priority Postpaid -->
+      <div class="product-card" role="article">
+        <img class="product-card-img" src="./Airtel — India&#39;s #1 Network _ Home_files/recomended-priority-postpaid.jpg" alt="Priority Postpaid">
+        <div class="product-card-body">
+          <div class="product-card-tag"><span class="tag tag-black">PRIORITY</span></div>
+          <h3 class="product-card-title">Priority Postpaid</h3>
+          <p class="product-card-desc">India's first Priority Postpaid plan with unlimited 5G, Netflix, Amazon Prime, and Disney+ Hotstar.</p>
+          <div class="product-card-price">₹999<span>/month</span></div>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="btn-primary product-card-cta">UPGRADE NOW</a>
+        </div>
+      </div>
+
+      <!-- Prepaid -->
+      <div class="product-card" role="article">
+        <img class="product-card-img" src="./Airtel — India&#39;s #1 Network _ Home_files/recommendations-slide-3.png" alt="Airtel Prepaid">
+        <div class="product-card-body">
+          <div class="product-card-tag"><span class="tag tag-lavender">PREPAID</span></div>
+          <h3 class="product-card-title">Airtel Prepaid</h3>
+          <p class="product-card-desc">Unlimited 5G data with validity from 28 to 365 days. Plus free Hellotunes and Wynk Music.</p>
+          <div class="product-card-price">₹299<span>/28 days</span></div>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="btn-primary product-card-cta">RECHARGE NOW</a>
+        </div>
+      </div>
+
+      <!-- Bank -->
+      <div class="product-card" role="article">
+        <img class="product-card-img" src="./Airtel — India&#39;s #1 Network _ Home_files/recommendations-slide-4.png" alt="Airtel Payments Bank">
+        <div class="product-card-body">
+          <div class="product-card-tag"><span class="tag tag-lavender">BANKING</span></div>
+          <h3 class="product-card-title">Airtel Payments Bank</h3>
+          <p class="product-card-desc">Save, pay, and invest with India's most trusted payments bank. 7% interest on deposits.</p>
+          <div class="product-card-price">Free<span> to open</span></div>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="btn-primary product-card-cta">OPEN ACCOUNT</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── RECHARGE STRIP ────────────────────────────────────────────────── -->
+<div class="recharge-strip" role="complementary" aria-label="Quick recharge">
+  <div class="container">
+    <div class="recharge-inner">
+      <div class="recharge-text">
+        <h2>Quick Recharge</h2>
+        <p>Recharge your mobile, pay bills, or top up DTH in seconds</p>
+      </div>
+      <div>
+        <div class="recharge-tabs">
+          <div class="recharge-tab active">Mobile</div>
+          <div class="recharge-tab">DTH</div>
+          <div class="recharge-tab">Broadband</div>
+          <div class="recharge-tab">Postpaid</div>
+        </div>
+        <div class="recharge-form-row">
+          <input class="recharge-input" type="tel" placeholder="Enter mobile number" aria-label="Mobile number">
+          <button class="recharge-submit">PROCEED</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CONFIGURATOR (fix #4: elevated to section 3, not buried at 6) ─── -->
+<section class="configurator-section" aria-label="Wi-Fi plan finder">
+  <div class="container">
+    <div class="configurator-layout">
+      <div class="config-left">
+        <p class="section-label">Plan Finder</p>
+        <h2 class="section-heading">Find the best<br>Wi-Fi plan for you</h2>
+        <p class="section-subhead" style="margin-top: 12px;">Tell us about your home and we'll recommend the perfect broadband plan.</p>
+
+        <div class="config-steps">
+          <div class="config-step">
+            <div class="config-step-label">Step 1</div>
+            <div class="config-step-title">How many devices connect at home?</div>
+            <div class="config-options">
+              <div class="config-option selected">
+                <span class="config-option-icon" aria-hidden="true">📱</span>
+                1–3 devices
+              </div>
+              <div class="config-option">
+                <span class="config-option-icon" aria-hidden="true">💻</span>
+                4–7 devices
+              </div>
+              <div class="config-option">
+                <span class="config-option-icon" aria-hidden="true">🖥️</span>
+                8+ devices
+              </div>
+            </div>
+          </div>
+
+          <div class="config-step">
+            <div class="config-step-label">Step 2</div>
+            <div class="config-step-title">What do you use the internet for?</div>
+            <div class="config-options">
+              <div class="config-option selected">
+                <span class="config-option-icon" aria-hidden="true">🎬</span>
+                Streaming
+              </div>
+              <div class="config-option">
+                <span class="config-option-icon" aria-hidden="true">🎮</span>
+                Gaming
+              </div>
+              <div class="config-option">
+                <span class="config-option-icon" aria-hidden="true">💼</span>
+                Work from home
+              </div>
+              <div class="config-option">
+                <span class="config-option-icon" aria-hidden="true">📞</span>
+                Video calls
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="config-right">
+        <div class="config-result">
+          <div class="config-result-head">
+            <h3>Recommended plans</h3>
+            <span class="config-result-badge">Based on your needs</span>
+          </div>
+
+          <div class="config-plan top-pick">
+            <div class="config-plan-icon" aria-hidden="true">⚡</div>
+            <div class="config-plan-info">
+              <div class="config-plan-name">Airtel Xstream 300 Mbps</div>
+              <div class="config-plan-speed">300 Mbps · Unlimited data · Free OTTs</div>
+            </div>
+            <div class="config-plan-price">₹799<sub>/mo</sub></div>
+          </div>
+
+          <div class="config-plan">
+            <div class="config-plan-icon" aria-hidden="true">🌐</div>
+            <div class="config-plan-info">
+              <div class="config-plan-name">Airtel Xstream 100 Mbps</div>
+              <div class="config-plan-speed">100 Mbps · Unlimited data</div>
+            </div>
+            <div class="config-plan-price">₹499<sub>/mo</sub></div>
+          </div>
+
+          <div class="config-plan">
+            <div class="config-plan-icon" aria-hidden="true">📶</div>
+            <div class="config-plan-info">
+              <div class="config-plan-name">Airtel Xstream 40 Mbps</div>
+              <div class="config-plan-speed">40 Mbps · Unlimited data</div>
+            </div>
+            <div class="config-plan-price">₹399<sub>/mo</sub></div>
+          </div>
+
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="btn-red config-result-cta">CHECK AVAILABILITY IN YOUR AREA</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── RECOMMENDED CAROUSEL ─────────────────────────────────────────── -->
+<section class="recommendations" aria-label="Recommended for you">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <p class="section-label">Recommended</p>
+        <h2 class="section-heading">Built for your lifestyle</h2>
+      </div>
+      <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="section-view-all">See all offers →</a>
+    </div>
+
+    <div class="rec-grid">
+      <div class="rec-card">
+        <img src="./Airtel — India&#39;s #1 Network _ Home_files/recommendations-slide-1.png" alt="Airtel Fiber" loading="lazy">
+        <div class="rec-card-overlay">
+          <div class="rec-card-title">Airtel Xstream Fiber</div>
+          <div class="rec-card-sub">Up to 1 Gbps · Free installation</div>
+          <span class="rec-card-cta-sm">GET STARTED →</span>
+        </div>
+      </div>
+      <div class="rec-card">
+        <img src="./Airtel — India&#39;s #1 Network _ Home_files/recomended-priority-postpaid.jpg" alt="Priority Postpaid" loading="lazy">
+        <div class="rec-card-overlay">
+          <div class="rec-card-title">Priority Postpaid</div>
+          <div class="rec-card-sub">Unlimited 5G + Netflix + more</div>
+          <span class="rec-card-cta-sm">UPGRADE NOW →</span>
+        </div>
+      </div>
+      <div class="rec-card">
+        <img src="./Airtel — India&#39;s #1 Network _ Home_files/recommendations-slide-3.png" alt="Airtel Prepaid" loading="lazy">
+        <div class="rec-card-overlay">
+          <div class="rec-card-title">Airtel Prepaid</div>
+          <div class="rec-card-sub">5G unlimited from ₹299</div>
+          <span class="rec-card-cta-sm">RECHARGE →</span>
+        </div>
+      </div>
+      <div class="rec-card">
+        <img src="./Airtel — India&#39;s #1 Network _ Home_files/recommendations-slide-4.png" alt="Airtel Bank" loading="lazy">
+        <div class="rec-card-overlay">
+          <div class="rec-card-title">Airtel Payments Bank</div>
+          <div class="rec-card-sub">7% interest · Zero fees</div>
+          <span class="rec-card-cta-sm">OPEN ACCOUNT →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── BUSINESS SECTION ──────────────────────────────────────────────── -->
+<section class="business-section" aria-label="Business solutions">
+  <div class="container">
+    <div class="business-grid">
+      <div class="business-intro">
+        <p class="section-label">For Business</p>
+        <h2 class="section-heading">Powering India's enterprises</h2>
+        <p>From connectivity to cloud, Airtel Business delivers the digital infrastructure your business needs to grow.</p>
+        <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="btn-primary">EXPLORE SOLUTIONS</a>
+      </div>
+      <div class="business-cards">
+        <div class="biz-card">
+          <div class="biz-card-icon" aria-hidden="true">🌐</div>
+          <div class="biz-card-title">Enterprise Connectivity</div>
+          <p class="biz-card-desc">SD-WAN, MPLS, and leased lines for enterprise-grade reliability across India.</p>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="biz-card-link">Learn more →</a>
+        </div>
+        <div class="biz-card">
+          <div class="biz-card-icon" aria-hidden="true">☁️</div>
+          <div class="biz-card-title">Cloud &amp; Data Center</div>
+          <p class="biz-card-desc">Secure, scalable cloud infrastructure with 24×7 managed services.</p>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="biz-card-link">Learn more →</a>
+        </div>
+        <div class="biz-card">
+          <div class="biz-card-icon" aria-hidden="true">📞</div>
+          <div class="biz-card-title">Business Voice &amp; IoT</div>
+          <p class="biz-card-desc">IVR, toll-free numbers, and IoT SIMs for smarter business operations.</p>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="biz-card-link">Learn more →</a>
+        </div>
+        <div class="biz-card">
+          <div class="biz-card-icon" aria-hidden="true">🔒</div>
+          <div class="biz-card-title">Cybersecurity</div>
+          <p class="biz-card-desc">End-to-end security solutions — SASE, firewall-as-a-service, and DDoS protection.</p>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="biz-card-link">Learn more →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand-logo">
+          <svg viewBox="0 0 110 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="90" aria-label="Airtel">
+            <path d="M8 24 C8 14 14 8 22 10 C30 12 32 20 28 24 C26 26 22 27 18 26 C14 25 12 22 13 19 C14 16 17 15 20 16" stroke="#E40000" stroke-width="2.8" stroke-linecap="round" fill="none"></path>
+            <text x="36" y="22" font-family="&#39;Nunito&#39;, sans-serif" font-weight="800" font-size="13" fill="rgba(246,246,246,0.9)" letter-spacing="-0.3">airtel</text>
+          </svg>
+        </div>
+        <p class="footer-brand-tagline">Connecting every Indian to a world of possibilities.</p>
+        <div class="footer-social">
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="footer-social-link" aria-label="Facebook">f</a>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="footer-social-link" aria-label="Twitter">𝕏</a>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="footer-social-link" aria-label="Instagram">◉</a>
+          <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="footer-social-link" aria-label="YouTube">▶</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Quick Access</div>
+        <ul class="footer-links">
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#">Prepaid Recharge</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#">Postpaid Bill Pay</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#">DTH Recharge</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#">Broadband Bill</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#">Check Balance</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links">
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#">Airtel 5G Plus</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#">Xstream Fiber</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#">Priority Postpaid</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#">Airtel Black</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#">DTH &amp; Broadband</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Help</div>
+        <ul class="footer-links">
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#">Contact Us</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#">Store Locator</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#">Track Order</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#">FAQs</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#">Complaints</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">About</div>
+        <ul class="footer-links">
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#">About Airtel</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#">Careers</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#">Investor Relations</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#">Media</a></li>
+          <li><a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#">Sustainability</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-bottom-text">© 2025 Bharti Airtel Limited. All rights reserved. | Privacy Policy | Terms of Use</span>
+      <div class="footer-app-links">
+        <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="app-badge">
+          <span class="app-badge-icon" aria-hidden="true">🍎</span>
+          App Store
+        </a>
+        <a href="chrome-extension://akjjllgokmbgpbdbmafpiefnhidlmbgf/preview/workspace/stardust/prototypes/home-A-proposed.html#" class="app-badge">
+          <span class="app-badge-icon" aria-hidden="true">▶</span>
+          Google Play
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

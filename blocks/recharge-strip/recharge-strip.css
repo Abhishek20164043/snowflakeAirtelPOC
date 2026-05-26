@@ -1,0 +1,96 @@
+.recharge-strip .recharge-strip-wrap {
+  background: var(--charcoal);
+  padding: 48px 0;
+}
+.recharge-strip .recharge-inner {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+.recharge-strip .recharge-text { flex: 1; }
+.recharge-strip .recharge-text h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-on-dark);
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+.recharge-strip .recharge-text p {
+  font-size: 15px;
+  color: rgb(246 246 246 / 60%);
+}
+.recharge-strip .recharge-form { flex-shrink: 0; }
+.recharge-strip .recharge-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.recharge-strip .recharge-tab {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgb(255 255 255 / 10%);
+  color: rgb(246 246 246 / 60%);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.recharge-strip .recharge-tab.active {
+  background: var(--red);
+  color: #fff;
+}
+.recharge-strip .recharge-form-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.recharge-strip .recharge-input {
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--charcoal);
+  background: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 13px 18px;
+  width: 260px;
+  outline: none;
+}
+.recharge-strip .recharge-input::placeholder {
+  color: rgb(105 107 111 / 70%);
+  font-weight: 500;
+}
+.recharge-strip .recharge-input:focus { box-shadow: 0 0 0 2px var(--red); }
+.recharge-strip .recharge-submit {
+  background: var(--red);
+  color: #fff;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  padding: 13px 24px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+}
+.recharge-strip .recharge-submit:hover { background: #c50000; transform: translateY(-1px); }
+@media (max-width: 1024px) {
+  .recharge-strip .recharge-inner { padding: 0 24px; }
+}
+@media (max-width: 768px) {
+  .recharge-strip .recharge-inner {
+    padding: 0 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  .recharge-strip .recharge-form { width: 100%; }
+  .recharge-strip .recharge-form-row { flex-direction: column; align-items: stretch; }
+  .recharge-strip .recharge-input { width: 100%; }
+}
