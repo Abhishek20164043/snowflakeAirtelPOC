@@ -157,3 +157,5 @@ a.btn-outline {
 
 /* Button groups */
 .btn-group { display: inline-flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+/* code sync trigger */
